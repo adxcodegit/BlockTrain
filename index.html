@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Block 76">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACxElEQVR42u3cMU4cMRiGYS9KlUg0SZOKau+Qc3AG2vSRUkeip80ZOEfusBUVDS09B1g8STze/T+G52mRLRNejUaa39l9vPzc4DUX/gkQB+JAHIgDcSAOxIE4EAfiAHEgDsSBOBAH4kAciANxIA4QB+JAHIiDc/pwik33f+4GVh2+fU/eMPx4yxumPDnGfrGFhSEbhh9vzcIzxbHyfMfLozYMP970PrxzIA7EgTgQB+JAHIgDcSAOxAHioCyOlV+Nj5dHbRh+vDb7q/38J8fw+XoLQzYMP147wTzHzn9vjXcOxIE4EAeVTJ9v5HjN9HnhhqbPy8roLTd9XtiHdw7EgTgQB+JAHIgDcSAOxIE4QByIg7w4XE1I2zDryeFqQtqGw1xNwDsH4kAciINSriZs5HjN1YTCDV1NKCujt9zVhMI+vHMgDsSBOBAH4kAciANxIA7EAeKgLA7T52kbZj05TJ+nbTjM9DneORAH4kAclHqn0+c3t0//u9vvH196P3q+/jVwvE/3P3s/+nq1H9jw8eGQ/uTIn8YeKGNh1VgZCwvHyliz8Exx5E9jj5XRWztcRm/5yj/w3D68cyAOxIE4EAfiQByIA3EgDsQB4qAsjvxp7IUv7391vHbhs/u/OF6+8rP73K/273H6fKyP3qrhPnoLh//A0+c5TJ/jnQNxIA7EQamTTJ9PH55O2DD8eO1NTJ9PH54O2TD8eC1/+nz68HTUhuHHa6bP8UKKOBAH4kAciANxgDgQB+JAHIiD7ccxfbI+asPw47X8qwnTJ+tDNgw/XnM1Ae8ciANxIA62xtWEjRyvuZpQuKGrCWVl9Ja7mlDYh3cOxIE4EAfiQByIA3EgDsSBOEAclMVh+jxtw6wnh+nztA2HmT7HOwfiQByIA3EgDsSBOBAH4gBxIA7EgTgQB+JAHIgDcSAOEAfiQByIg7N6AeMuxKpbVo4lAAAAAElFTkSuQmCC">
 <meta name="theme-color" content="#0A0E13" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#EDEFF3" media="(prefers-color-scheme: light)">
 <title>The Block — 1 Sep → 15 Nov</title>
@@ -35,7 +39,7 @@ body{
 }
 .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
 h1,h2,h3{
-  margin:0;font-family:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;
+  margin:0;font-family:"Bricolage Grotesque","Instrument Sans",system-ui,-apple-system,"SF Pro Display",sans-serif;
   font-weight:800;letter-spacing:-.025em;line-height:1.08;
 }
 h1{font-size:29px;font-variation-settings:'opsz' 60,'wdth' 92}
@@ -55,8 +59,8 @@ button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:n
   display:flex;align-items:center;gap:12px;
 }
 .brand{flex:1;min-width:0}
-.brand .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:2px}
-.brand .title{font-family:"Bricolage Grotesque",sans-serif;font-size:18.5px;font-weight:800;font-variation-settings:'opsz' 24,'wdth' 90;letter-spacing:-.028em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
+.brand .eyebrow{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:2px}
+.brand .title{font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-size:18.5px;font-weight:800;font-variation-settings:'opsz' 24,'wdth' 90;letter-spacing:-.028em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
 .daychip{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-width:52px;height:44px;border-radius:12px;background:var(--surface2);border:1px solid var(--line);
@@ -74,7 +78,7 @@ main{padding:16px 16px 28px;max-width:560px;margin:0 auto}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
 .card.flat{box-shadow:none;background:var(--surface2)}
-.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:9px}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:9px}
 .muted{color:var(--ink2)}
 .small{font-size:13.5px;line-height:1.55}
 .tiny{font-size:12px;line-height:1.5}
@@ -110,7 +114,7 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:14px 0}
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .stat{background:var(--surface2);border:1px solid var(--line);border-radius:13px;padding:11px 12px}
-.stat .k{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:500}
+.stat .k{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:500}
 .stat .v{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;font-weight:600;letter-spacing:-.03em;line-height:1.25;margin-top:4px}
 .stat .v small{font-size:12px;font-weight:400;color:var(--ink2)}
 .stat .s{font-size:11px;color:var(--ink2);margin-top:1px}
@@ -136,7 +140,7 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:14px 0}
 .wk>summary{list-style:none;padding:13px 14px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .wk>summary::-webkit-details-marker{display:none}
 .wk .wn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink2);width:34px}
-.wk .wt{flex:1;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:15.5px;letter-spacing:-.018em;font-variation-settings:'opsz' 18,'wdth' 96}
+.wk .wt{flex:1;font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:15.5px;letter-spacing:-.018em;font-variation-settings:'opsz' 18,'wdth' 96}
 .wk .wm{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--ink2)}
 .wk .chev{width:16px;height:16px;stroke:var(--ink2);fill:none;stroke-width:2;transition:transform .2s}
 .wk[open] .chev{transform:rotate(180deg)}
@@ -153,7 +157,7 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:14px 0}
 .ex .sub{display:block;font-size:12.5px;line-height:1.45;color:var(--ink2);margin-top:3px}
 
 /* ---------- form ---------- */
-label.f{display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin:16px 0 7px}
+label.f{display:block;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin:16px 0 7px}
 input[type=number],input[type=text],input[type=date],textarea,select{
   width:100%;max-width:100%;min-width:0;display:block;
   background:var(--surface2);border:1px solid var(--line);color:var(--ink);
@@ -190,20 +194,20 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .seg{display:flex;gap:6px}
 .seg button{flex:1;padding:11px 0;border-radius:11px;border:1px solid var(--line);background:var(--surface2);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;min-height:46px}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
-.btn{width:100%;padding:15px;border-radius:13px;background:var(--ink);color:var(--bg);font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16px;letter-spacing:-.015em;margin-top:18px;min-height:50px}
+.btn{width:100%;padding:15px;border-radius:13px;background:var(--ink);color:var(--bg);font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:16px;letter-spacing:-.015em;margin-top:18px;min-height:50px}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:600;margin-top:9px}
 .toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);padding:13px 16px;border-radius:13px;font-weight:700;font-size:14px;text-align:center;opacity:0;transform:translateY(8px);pointer-events:none;transition:.25s;max-width:528px;margin:0 auto}
 .toast.on{opacity:1;transform:none}
 
 /* ---------- tabs ---------- */
 .tabs{
-  position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(4,1fr);
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(5,1fr);
   background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(16px) saturate(1.6);
   -webkit-backdrop-filter:blur(16px) saturate(1.6);
   border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));
 }
 .tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:11px;color:var(--ink2);min-height:52px;justify-content:center}
-.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabs button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .tabs button span{font-size:10px;font-weight:600;letter-spacing:.01em}
 .tabs button[aria-selected=true]{color:var(--ink)}
 
@@ -223,6 +227,59 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .callout{border-left:2.5px solid var(--warn);padding:1px 0 1px 14px;margin:13px 0;font-size:13.5px;line-height:1.55}
 .callout.run{border-color:var(--run)}
 .callout.lift{border-color:var(--lift)}
+/* ---------- food / macros ---------- */
+.datenav{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.datenav button.nav{width:44px;height:44px;flex:0 0 44px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);display:grid;place-items:center}
+.datenav button.nav svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.datenav .mid{flex:1;min-width:0;text-align:center}
+.datenav .mid .a{font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:16px;letter-spacing:-.02em;line-height:1.15}
+.datenav .mid .b{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);margin-top:1px}
+
+.kcalbig{display:flex;align-items:baseline;gap:8px;justify-content:center;margin:2px 0 4px}
+.kcalbig .n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:42px;font-weight:600;letter-spacing:-.045em;line-height:1}
+.kcalbig .of{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:14px;color:var(--ink2)}
+.kcalsub{text-align:center;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:12px;color:var(--ink2);margin-bottom:12px}
+.kcalsub.over{color:var(--warn)}
+
+.mrow{margin-top:13px}
+.mrow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.mrow .top b{font-size:13px;font-weight:600}
+.mrow .top span{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:12px;color:var(--ink2)}
+.mbar{height:7px;border-radius:5px;background:var(--surface2);border:1px solid var(--line);overflow:hidden}
+.mbar i{display:block;height:100%;border-radius:5px;transition:width .35s ease}
+.mbar i.p{background:var(--run)} .mbar i.c{background:var(--done)} .mbar i.f{background:var(--warn)}
+
+.srch{position:relative;margin-bottom:8px}
+.srch input{padding-left:40px;font-family:"Instrument Sans",sans-serif}
+.srch svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--ink2);fill:none;stroke-width:2}
+.flist{max-height:236px;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+.fitem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 12px;border-radius:11px;min-height:48px}
+.fitem:active{background:var(--surface2)}
+.fitem.on{background:var(--surface2);box-shadow:0 0 0 1px var(--line) inset}
+.fitem .nm{flex:1;min-width:0;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.fitem .nm em{display:block;font-style:normal;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);font-weight:400;margin-top:2px}
+.fitem .mk{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);white-space:nowrap}
+.fempty{padding:16px 4px;font-size:13.5px;color:var(--ink2)}
+
+.gramrow{display:flex;gap:9px;margin-top:10px}
+.gramrow input{flex:1}
+.gramrow button{flex:0 0 96px;border-radius:12px;background:var(--ink);color:var(--bg);font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:15px;min-height:50px}
+.gramrow button:disabled{opacity:.35}
+.prev{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11.5px;color:var(--ink2);margin-top:8px;text-align:center}
+
+.entry{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.entry:last-child{border-bottom:0}
+.entry .nm{flex:1;min-width:0;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.entry .nm em{display:block;font-style:normal;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);font-weight:400;margin-top:2px}
+.entry .kc{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:13px;white-space:nowrap}
+.entry .del{width:34px;height:34px;flex:0 0 34px;border-radius:9px;display:grid;place-items:center}
+.entry .del:active{background:var(--surface2)}
+.entry .del svg{width:15px;height:15px;stroke:var(--ink2);fill:none;stroke-width:2;stroke-linecap:round}
+
+.banner{border:1px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);color:var(--ink);border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.5;margin-bottom:12px}
+.banner b{color:var(--warn)}
+.linkline{width:100%;text-align:center;padding:12px 0 2px;font-size:13px;color:var(--ink2);font-weight:600;min-height:44px}
+
 svg.spark{width:100%;height:74px;display:block;overflow:visible}
 </style>
 </head>
@@ -232,7 +289,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   <div class="daychip"><b class="mono" id="dayNum">—</b><span>Day</span></div>
   <div class="brand">
     <div class="eyebrow">1 Sep → 15 Nov 2026</div>
-    <div class="title">The Block AN</div>
+    <div class="title">The Block</div>
   </div>
   <button class="tgl" id="themeBtn" aria-label="Switch theme">
     <svg id="themeIcon" viewBox="0 0 24 24"></svg>
@@ -402,7 +459,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
     <div class="chk" style="margin-top:10px"><input type="checkbox" id="cLift"><div class="lbl">Lift done<em>All working sets completed</em></div></div>
 
     <label class="f">Pillars</label>
-    <div class="chk"><input type="checkbox" id="cFuel"><div class="lbl">Ate to target<em>Calories and protein both hit</em></div></div>
+    <div class="chk"><input type="checkbox" id="cFuel"><div class="lbl">Ate to target<em id="fuelReadout">Calories and protein both hit</em></div></div>
     <div class="chk"><input type="checkbox" id="cSleep"><div class="lbl">Slept 7 hours<em>Actual sleep, not time in bed</em></div></div>
     <div class="chk"><input type="checkbox" id="cSteps"><div class="lbl">10,000 steps<em>Outside of training</em></div></div>
 
@@ -420,11 +477,79 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
 
     <button class="btn" id="saveLog">Save the day</button>
     <button class="btn ghost" id="exportBtn">Export all data</button>
+    <button class="btn ghost" id="importBtn">Import a backup</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
   </div>
+
+  <div id="backupNudge"></div>
 
   <div class="card">
     <div class="eyebrow">Last 14 days</div>
     <div id="recent"></div>
+  </div>
+</section>
+
+<!-- ============ FOOD ============ -->
+<section class="pane" id="pane-food">
+  <div id="persistWarn"></div>
+
+  <div class="datenav">
+    <button class="nav" id="fPrev" aria-label="Previous day"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="mid"><div class="a" id="fDayA">Today</div><div class="b" id="fDayB"></div></div>
+    <button class="nav" id="fNext" aria-label="Next day"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+
+  <div class="card">
+    <div class="kcalbig"><span class="n" id="kNow">0</span><span class="of" id="kTgt"></span></div>
+    <div class="kcalsub" id="kSub"></div>
+    <div class="bar"><i id="kBar" style="width:0%"></i></div>
+    <div id="mBars"></div>
+    <div id="dayNote"></div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Add food</div>
+    <div class="srch">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" id="fSearch" placeholder="Search foods…" autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="flist" id="fList"></div>
+    <div id="fPick"></div>
+    <button class="linkline" id="newFoodBtn">+ Add a food that isn't listed</button>
+    <div id="newFoodPanel" hidden>
+      <label class="f" for="nfName">Name</label>
+      <input type="text" id="nfName" placeholder="e.g. Mother Dairy Curd">
+      <label class="f">Per 100 g</label>
+      <div class="two">
+        <input type="number" id="nfKcal" inputmode="decimal" placeholder="kcal">
+        <input type="number" id="nfP" inputmode="decimal" placeholder="protein g">
+      </div>
+      <div class="two" style="margin-top:9px">
+        <input type="number" id="nfF" inputmode="decimal" placeholder="fat g">
+        <input type="number" id="nfC" inputmode="decimal" placeholder="carbs g">
+      </div>
+      <button class="btn" id="nfSave">Save food</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow" style="display:flex;justify-content:space-between"><span>Food log</span><span class="mono" id="fCount"></span></div>
+    <div id="fLog"></div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Daily targets</div>
+    <div class="two">
+      <div><label class="f" style="margin-top:0" for="tKcal">Calories</label><input type="number" id="tKcal" inputmode="decimal"></div>
+      <div><label class="f" style="margin-top:0" for="tP">Protein g</label><input type="number" id="tP" inputmode="decimal"></div>
+    </div>
+    <div class="two" style="margin-top:10px">
+      <div><label class="f" style="margin-top:0" for="tC">Carbs g</label><input type="number" id="tC" inputmode="decimal"></div>
+      <div><label class="f" style="margin-top:0" for="tF">Fat g</label><input type="number" id="tF" inputmode="decimal"></div>
+    </div>
+    <button class="btn" id="tSave">Save targets</button>
+    <button class="btn ghost" id="tReset">Reset to plan targets</button>
+    <p class="tiny muted" style="margin-top:12px">These are your <b>base</b> targets. On Tuesday, Thursday and Sunday the plan automatically adds carbs and calories on top — the number at the top of this tab already includes that day's adjustment.</p>
   </div>
 </section>
 
@@ -434,6 +559,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   <button role="tab" aria-selected="true" data-p="block"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2.5v3M16 2.5v3"/></svg><span>Block</span></button>
   <button role="tab" aria-selected="false" data-p="train"><svg viewBox="0 0 24 24"><path d="M6.5 8v8M17.5 8v8M3 10v4M21 10v4M6.5 12h11"/></svg><span>Train</span></button>
   <button role="tab" aria-selected="false" data-p="fuel"><svg viewBox="0 0 24 24"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M17.5 3c-1.5 2-2 4-2 6.5 0 1.5.7 2.5 2 2.5V21"/></svg><span>Fuel</span></button>
+  <button role="tab" aria-selected="false" data-p="food"><svg viewBox="0 0 24 24"><path d="M12 7.5c-1-2.2-3-3.3-5-2.6C4.6 5.8 3.5 8.4 4.2 11c.9 3.6 4 6.9 7.8 9 3.8-2.1 6.9-5.4 7.8-9 .7-2.6-.4-5.2-2.8-6.1-2-.7-4 .4-5 2.6Z"/></svg><span>Food</span></button>
   <button role="tab" aria-selected="false" data-p="log"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span>Log</span></button>
 </nav>
 
@@ -445,18 +571,37 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
    STORAGE — artifact-safe with in-memory fallback
    ============================================================ */
 const _mem = {};
+let PERSIST = 'memory';   // 'artifact' | 'local' | 'memory'
 const store = {
   async get(k){
     try{ if(window.storage){ const r = await window.storage.get(k,false); if(r&&r.value) return JSON.parse(r.value); } }catch(e){}
+    try{ const raw = window.localStorage.getItem(k); if(raw!==null) return JSON.parse(raw); }catch(e){}
     return (k in _mem) ? _mem[k] : null;
   },
   async set(k,v){
-    _mem[k]=v;
-    try{ if(window.storage){ await window.storage.set(k, JSON.stringify(v), false); } }catch(e){}
+    _mem[k]=v; let ok=false;
+    try{ window.localStorage.setItem(k, JSON.stringify(v)); ok=true; PERSIST='local'; }catch(e){}
+    try{ if(window.storage){ await window.storage.set(k, JSON.stringify(v), false); ok=true; if(PERSIST!=='local') PERSIST='artifact'; } }catch(e){}
+    if(!ok){ PERSIST='memory'; showPersistWarn(); }
+    return ok;
   }
 };
-const K_LOG='block76:log', K_PREF='block76:prefs';
-let LOG = {}, PREFS = {theme:'dark', startW:90};
+function checkOrigin(){
+  const h=location.hostname;
+  if(!h||h==='localhost'||h==='127.0.0.1') return;
+  const bad = h.startsWith('www.') || h.endsWith('.github.io');
+  if(!bad) return;
+  const el=document.getElementById('persistWarn'); if(!el) return;
+  el.insertAdjacentHTML('beforeend','<div class="banner"><b>Wrong address.</b> You are on <span class="mono">'+h.replace(/[<>&"]/g,'')+'</span>. Saved data is tied to the exact domain, so anything you log here will not appear at <span class="mono">adityanair.co.in</span>. Open it there instead — and bookmark that one.</div>');
+}
+function showPersistWarn(){
+  const el=document.getElementById('persistWarn'); if(!el||el.dataset.shown) return;
+  el.dataset.shown='1';
+  el.innerHTML='<div class="banner"><b>Nothing is being saved.</b> This browser is blocking storage — most likely Private Browsing. Everything you enter will vanish when you close the tab. Turn Private Browsing off, or export your data before you leave.</div>';
+}
+const K_LOG='block76:log', K_PREF='block76:prefs', K_FOOD='block76:food', K_CF='block76:customfoods';
+let LOG = {}, FOOD = {}, CUSTOM = [], PREFS = {theme:'dark', startW:90, targets:null};
+let ACTIVE = null;
 
 /* ============================================================
    PLAN DATA
@@ -848,8 +993,9 @@ function loadDay(key){
   rpe=e.rpe||0;
   document.querySelectorAll('#rpeSeg button').forEach(x=>x.setAttribute('aria-pressed', (+x.dataset.v===rpe)?'true':'false'));
   document.getElementById('logPlan').innerHTML='<div class="eyebrow">On the plan today</div>'+planSummary(key);
+  if(typeof renderFuelReadout==='function') renderFuelReadout();
 }
-document.getElementById('logDate').addEventListener('change',e=>loadDay(e.target.value));
+document.getElementById('logDate').addEventListener('change',e=>{ loadDay(e.target.value); ACTIVE=e.target.value; picked=null; renderFood(); });
 document.getElementById('saveLog').onclick=async()=>{
   const key=document.getElementById('logDate').value; if(!key) return toast('Pick a date first');
   const w=parseFloat(document.getElementById('wIn').value);
@@ -862,20 +1008,47 @@ document.getElementById('saveLog').onclick=async()=>{
     steps:document.getElementById('cSteps').checked, rpe, note:document.getElementById('noteIn').value.trim()
   };
   await store.set(K_LOG,LOG);
-  renderGrid(); renderStats(); renderRecent();
+  renderGrid(); renderStats(); renderRecent(); renderBackupNudge();
   const s=(LOG[key].run?1:0)+(LOG[key].lift?1:0)+(LOG[key].fuel?1:0)+(LOG[key].sleep?1:0);
   toast(s>=4?'Perfect day logged':'Day saved · '+s+'/4 pillars');
 };
 document.getElementById('exportBtn').onclick=()=>{
-  const blob=new Blob([JSON.stringify({prefs:PREFS,log:LOG},null,2)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='block76-data.json'; a.click();
-  toast('Exported');
+  const payload={v:2,exported:new Date().toISOString(),prefs:PREFS,log:LOG,food:FOOD,customFoods:CUSTOM};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='block76-'+iso(new Date())+'.json'; a.click();
+  PERFS_EXPORT();
+  toast('Exported — training and food');
+};
+async function PERFS_EXPORT(){ PREFS.lastExport=Date.now(); await store.set(K_PREF,PREFS); renderBackupNudge(); }
+document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=async ev=>{
+  const f=ev.target.files&&ev.target.files[0]; if(!f) return;
+  try{
+    const d=JSON.parse(await f.text());
+    if(d.log) LOG={...LOG,...d.log};
+    if(d.food) FOOD={...FOOD,...d.food};
+    if(d.customFoods) { const have=new Set(CUSTOM.map(x=>x.id)); CUSTOM=CUSTOM.concat(d.customFoods.filter(x=>!have.has(x.id))); }
+    if(d.prefs) PREFS={...PREFS,...d.prefs};
+    await store.set(K_LOG,LOG); await store.set(K_FOOD,FOOD); await store.set(K_CF,CUSTOM); await store.set(K_PREF,PREFS);
+    applyTheme(PREFS.theme); fillTargets(); renderFuel(); renderFood(); renderGrid(); renderStats(); renderRecent();
+    toast('Data restored');
+  }catch(e){ toast("Couldn't read that file"); }
+  ev.target.value='';
 };
 document.getElementById('saveW').onclick=async()=>{
   const v=parseFloat(document.getElementById('startW').value);
   if(isNaN(v)||v<35||v>250) return toast('Enter a weight between 35 and 250');
-  PREFS.startW=v; await store.set(K_PREF,PREFS); renderFuel(); renderStats(); toast('Targets updated');
+  PREFS.startW=v; await store.set(K_PREF,PREFS); renderFuel(); renderStats(); fillTargets(); renderFood(); toast('Targets updated');
 };
+function renderBackupNudge(){
+  const el=document.getElementById('backupNudge'); if(!el) return;
+  const n=Object.keys(LOG).length; if(n<5){ el.innerHTML=''; return; }
+  const last=PREFS.lastExport?Math.floor((Date.now()-PREFS.lastExport)/864e5):null;
+  if(last!==null && last<7){ el.innerHTML='<p class="tiny muted" style="margin:0">Last backup '+(last===0?'today':last+' day'+(last>1?'s':'')+' ago')+'.</p>'; return; }
+  el.innerHTML='<div class="banner"><b>'+(last===null?'You have never exported.':'Last backup was '+last+' days ago.')+'</b> '
+    +n+' days of training and food live only in this browser. Export now and drop the file in your Drive — make it part of the Sunday long run.</div>';
+}
 function renderRecent(){
   const el=document.getElementById('recent');
   const rows=[];
@@ -889,6 +1062,209 @@ function renderRecent(){
       +(e.note?'<span class="sub" style="display:block;font-size:11.5px;color:var(--ink2);margin-top:2px">'+e.note.replace(/</g,'&lt;').slice(0,90)+'</span>':'')+'</div></div>');
   }
   el.innerHTML=rows.length?rows.join(''):'<p class="small muted" style="margin:0">Nothing logged yet. Fill this in tonight — the tracker only works if it is boring and daily.</p>';
+}
+
+
+/* ============================================================
+   FOOD — macro tracking, wired into the training plan
+   ============================================================ */
+const BASE_FOODS=[
+ {id:"chicken", name:"Raw Chicken Breast",                       kcal:165, p:31,   f:3.6, c:0},
+ {id:"skyr",    name:"Milky Mist Skyr High-Protein Yogurt",      kcal:100, p:12,   f:1.5, c:10},
+ {id:"basmati", name:"Basmati Rice (raw)",                       kcal:350, p:7.5,  f:0.5, c:78},
+ {id:"miild",   name:"Miild High Protein Atta",                  kcal:387, p:46.2, f:2.3, c:45.5},
+ {id:"butter",  name:"Amul Butter",                              kcal:720, p:0.1,  f:80,  c:0.1},
+ {id:"whey",    name:"Whey Protein Powder",                      kcal:380, p:80,   f:6,   c:8},
+ {id:"sauce",   name:"Pizza / Pasta Sauce",                      kcal:40,  p:1.5,  f:1,   c:8},
+ {id:"cheese",  name:"Amul Cheese Slice",                        kcal:314, p:20,   f:26,  c:1.5},
+ {id:"mayo",    name:"Veeba Low Fat Mayonnaise",                 kcal:204, p:1,    f:20,  c:8},
+ {id:"oats",    name:"Oats (raw)",                               kcal:389, p:13.5, f:6.5, c:66},
+ {id:"banana",  name:"Banana",                                   kcal:89,  p:1.1,  f:0.3, c:23},
+ {id:"papaya",  name:"Papaya",                                   kcal:43,  p:0.6,  f:0.3, c:11},
+ {id:"paneer",  name:"Paneer",                                   kcal:265, p:18,   f:20,  c:4},
+ {id:"bread",   name:"Whole Wheat Bread",                        kcal:247, p:9,    f:3,   c:41},
+ {id:"egg",     name:"Whole Egg (raw)",                          kcal:143, p:12.6, f:9.5, c:0.7},
+ {id:"eggwhite",name:"Egg Whites (raw)",                         kcal:52,  p:10.9, f:0.2, c:0.7}
+];
+let picked=null;
+const allFoods=()=>BASE_FOODS.concat(CUSTOM);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const r0=n=>Math.round(n), r1=n=>Math.round(n*10)/10;
+function scaleF(f,g){const k=g/100;return{kcal:f.kcal*k,p:f.p*k,f:f.f*k,c:f.c*k};}
+
+function planTargets(){
+  const w=PREFS.startW||90, tdee=Math.round(w*31);
+  const kcal=Math.round((tdee-680)/10)*10, pro=Math.round(w*1.8), fat=Math.round(w*0.75);
+  return {kcal, p:pro, f:fat, c:Math.round((kcal-pro*4-fat*9)/4)};
+}
+/* Carb periodisation — hard running days get more fuel, automatically. */
+function dayAdjust(key){
+  const d=new Date(key+'T00:00:00'), pl=planFor(d);
+  if(!pl||!pl.run||!pl.week) return {kcal:0,c:0,why:''};
+  const r=pl.week.runs[pl.run]; if(!r) return {kcal:0,c:0,why:''};
+  if(r.km>=14) return {kcal:280,c:70,why:'Long run day — '+r.km+' km. Extra carbs today and the night before are training equipment, not a treat.'};
+  if(r.t==='Speed'||r.t==='Tempo') return {kcal:140,c:35,why:'Quality run day ('+r.t.toLowerCase()+'). Slightly more carbs so the session is actually worth doing.'};
+  return {kcal:0,c:0,why:''};
+}
+function targetsFor(key){
+  const b=PREFS.targets||planTargets(), a=dayAdjust(key);
+  return {kcal:b.kcal+a.kcal, p:b.p, f:b.f, c:b.c+a.c, adj:a};
+}
+function foodTotals(key){
+  const t={kcal:0,p:0,f:0,c:0};
+  (FOOD[key]||[]).forEach(e=>{const x=scaleF(e.per100,e.grams);t.kcal+=x.kcal;t.p+=x.p;t.f+=x.f;t.c+=x.c;});
+  return t;
+}
+/* Did the day genuinely hit target? Used by the Log tab's Fuel pillar. */
+function fuelHit(key){
+  const list=FOOD[key]||[]; if(!list.length) return null;
+  const t=foodTotals(key), g=targetsFor(key);
+  return (t.kcal<=g.kcal*1.07) && (t.p>=g.p*0.9);
+}
+
+function renderFood(){
+  const key=ACTIVE, d=new Date(key+'T00:00:00');
+  document.getElementById('fDayA').textContent = (key===iso(new Date()))?'Today':(DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]);
+  const inBlock = d>=START && d<=END;
+  document.getElementById('fDayB').textContent = inBlock ? ('Day '+dayNo(d)+' · '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()) : d.toDateString();
+
+  const t=foodTotals(key), g=targetsFor(key);
+  document.getElementById('kNow').textContent=r0(t.kcal);
+  document.getElementById('kTgt').textContent='/ '+g.kcal+' kcal';
+  const left=g.kcal-t.kcal, sub=document.getElementById('kSub');
+  sub.textContent = left>=0 ? (r0(left)+' kcal left') : (r0(-left)+' kcal over');
+  sub.className='kcalsub'+(left<0?' over':'');
+  document.getElementById('kBar').style.width=Math.min(100,t.kcal/g.kcal*100)+'%';
+
+  const rows=[['Protein',t.p,g.p,'p'],['Carbs',t.c,g.c,'c'],['Fat',t.f,g.f,'f']];
+  document.getElementById('mBars').innerHTML=rows.map(r=>
+    '<div class="mrow"><div class="top"><b>'+r[0]+'</b><span>'+r1(r[1])+' / '+r[2]+' g</span></div>'
+    +'<div class="mbar"><i class="'+r[3]+'" style="width:'+Math.min(100,r[2]?r[1]/r[2]*100:0)+'%"></i></div></div>').join('');
+
+  document.getElementById('dayNote').innerHTML = g.adj.why
+    ? '<div class="callout run" style="margin:16px 0 0">'+g.adj.why+'</div>' : '';
+
+  renderPicker(); renderFoodLog();
+}
+function renderPicker(){
+  const q=(document.getElementById('fSearch').value||'').toLowerCase().trim();
+  const list=allFoods().filter(f=>!q||f.name.toLowerCase().includes(q));
+  const el=document.getElementById('fList');
+  el.innerHTML = list.length ? list.map(f=>
+    '<button class="fitem'+(picked&&picked.id===f.id?' on':'')+'" data-fid="'+f.id+'">'
+    +'<span class="nm">'+esc(f.name)+'<em>'+f.kcal+' kcal · P'+f.p+' C'+f.c+' F'+f.f+' / 100 g</em></span>'
+    +'<span class="mk">'+(picked&&picked.id===f.id?'✓':'')+'</span></button>').join('')
+    : '<div class="fempty">No match. Add it below and it stays in your list.</div>';
+  el.querySelectorAll('.fitem').forEach(b=>b.onclick=()=>{
+    picked=allFoods().find(f=>f.id===b.dataset.fid)||null; renderPicker();
+    if(picked) setTimeout(()=>document.getElementById('gIn')?.focus(),40);
+  });
+  const pk=document.getElementById('fPick');
+  if(!picked){ pk.innerHTML=''; return; }
+  pk.innerHTML='<div class="gramrow"><input type="number" id="gIn" inputmode="decimal" placeholder="grams"><button id="addBtn" disabled>Add</button></div><div class="prev" id="gPrev">Enter a weight in grams</div>';
+  const gi=document.getElementById('gIn'), ab=document.getElementById('addBtn');
+  gi.oninput=()=>{
+    const g=parseFloat(gi.value); ab.disabled=!(g>0);
+    document.getElementById('gPrev').textContent = g>0
+      ? (r0(scaleF(picked,g).kcal)+' kcal · P '+r1(scaleF(picked,g).p)+' · C '+r1(scaleF(picked,g).c)+' · F '+r1(scaleF(picked,g).f))
+      : 'Enter a weight in grams';
+  };
+  ab.onclick=async()=>{
+    const g=parseFloat(gi.value); if(!(g>0)) return;
+    (FOOD[ACTIVE]=FOOD[ACTIVE]||[]).push({id:'e'+Date.now(),name:picked.name,grams:g,per100:{kcal:picked.kcal,p:picked.p,f:picked.f,c:picked.c}});
+    await store.set(K_FOOD,FOOD);
+    picked=null; document.getElementById('fSearch').value='';
+    renderFood(); syncFuel(); toast('Added');
+  };
+}
+function renderFoodLog(){
+  const list=FOOD[ACTIVE]||[], el=document.getElementById('fLog');
+  document.getElementById('fCount').textContent=list.length?(list.length+' item'+(list.length>1?'s':'')):'';
+  el.innerHTML = list.length ? list.map(e=>{
+    const x=scaleF(e.per100,e.grams);
+    return '<div class="entry"><span class="nm">'+esc(e.name)+'<em>'+r1(e.grams)+' g · P '+r1(x.p)+' C '+r1(x.c)+' F '+r1(x.f)+'</em></span>'
+      +'<span class="kc">'+r0(x.kcal)+'</span>'
+      +'<button class="del" data-del="'+e.id+'" aria-label="Remove"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>';
+  }).join('') : '<p class="small muted" style="margin:0">Nothing logged for this day yet.</p>';
+  el.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{
+    FOOD[ACTIVE]=(FOOD[ACTIVE]||[]).filter(e=>e.id!==b.dataset.del);
+    if(!FOOD[ACTIVE].length) delete FOOD[ACTIVE];
+    await store.set(K_FOOD,FOOD); renderFood(); syncFuel();
+  });
+}
+/* Keep the Log tab's Fuel pillar honest — it now reflects what was actually eaten. */
+async function syncFuel(){
+  const d=new Date(ACTIVE+'T00:00:00'), inBlock = d>=START && d<=END;
+  const hit=fuelHit(ACTIVE);
+  if(hit!==null && inBlock){
+    const e=LOG[ACTIVE]||{}; e.fuel=hit; LOG[ACTIVE]=e; await store.set(K_LOG,LOG);
+    if(document.getElementById('logDate').value===ACTIVE) document.getElementById('cFuel').checked=hit;
+  }
+  renderGrid(); renderStats(); renderRecent(); renderFuelReadout();
+}
+function renderFuelReadout(){
+  const key=document.getElementById('logDate').value; if(!key) return;
+  const el=document.getElementById('fuelReadout'); if(!el) return;
+  const list=FOOD[key]||[];
+  if(!list.length){ el.innerHTML='<span class="muted">Nothing logged on the Food tab for this day — tick manually if you tracked elsewhere.</span>'; return; }
+  const t=foodTotals(key), g=targetsFor(key);
+  el.innerHTML='<span class="mono">'+r0(t.kcal)+' / '+g.kcal+' kcal · protein '+r0(t.p)+' / '+g.p+' g</span>';
+}
+function goDay(delta){
+  ACTIVE=iso(addD(new Date(ACTIVE+'T00:00:00'),delta));
+  picked=null; renderFood();
+  const li=document.getElementById('logDate');
+  if(ACTIVE>=iso(START)&&ACTIVE<=iso(END)){ li.value=ACTIVE; loadDay(ACTIVE); }
+}
+document.getElementById('fPrev').onclick=()=>goDay(-1);
+document.getElementById('fNext').onclick=()=>goDay(1);
+document.getElementById('fSearch').addEventListener('input',renderPicker);
+document.getElementById('newFoodBtn').onclick=()=>{
+  const pn=document.getElementById('newFoodPanel'); pn.hidden=!pn.hidden;
+  document.getElementById('newFoodBtn').textContent=pn.hidden?"+ Add a food that isn't listed":'Cancel';
+};
+document.getElementById('nfSave').onclick=async()=>{
+  const n=document.getElementById('nfName').value.trim();
+  const v=id=>parseFloat(document.getElementById(id).value);
+  const kcal=v('nfKcal'),pp=v('nfP'),ff=v('nfF'),cc=v('nfC');
+  if(!n) return toast('Give it a name');
+  if([kcal,pp,ff,cc].some(x=>isNaN(x)||x<0)) return toast('Fill all four macro fields');
+  CUSTOM.push({id:'c'+Date.now(),name:n,kcal,p:pp,f:ff,c:cc});
+  await store.set(K_CF,CUSTOM);
+  ['nfName','nfKcal','nfP','nfF','nfC'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('newFoodPanel').hidden=true;
+  document.getElementById('newFoodBtn').textContent="+ Add a food that isn't listed";
+  renderPicker(); toast('Saved to your food list');
+};
+function fillTargets(){
+  const b=PREFS.targets||planTargets();
+  document.getElementById('tKcal').value=b.kcal; document.getElementById('tP').value=b.p;
+  document.getElementById('tC').value=b.c; document.getElementById('tF').value=b.f;
+}
+document.getElementById('tSave').onclick=async()=>{
+  const v=id=>parseFloat(document.getElementById(id).value);
+  const t={kcal:v('tKcal'),p:v('tP'),f:v('tF'),c:v('tC')};
+  if(Object.values(t).some(x=>isNaN(x)||x<=0)) return toast('All four need a number');
+  PREFS.targets=t; await store.set(K_PREF,PREFS); renderFood(); syncFuel(); toast('Targets saved');
+};
+document.getElementById('tReset').onclick=async()=>{
+  PREFS.targets=null; await store.set(K_PREF,PREFS); fillTargets(); renderFood(); toast('Back to plan targets');
+};
+/* Pull across anything already logged in the standalone macros tracker. */
+function importLegacy(){
+  let n=0;
+  try{
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(k&&k.indexOf('macros.v1.log:')===0){
+        const day=k.slice('macros.v1.log:'.length);
+        if(FOOD[day]) continue;
+        const v=JSON.parse(localStorage.getItem(k));
+        if(Array.isArray(v)&&v.length){ FOOD[day]=v; n++; }
+      }
+    }
+  }catch(e){}
+  return n;
 }
 
 /* ============================================================
@@ -921,15 +1297,29 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
    ============================================================ */
 (async function init(){
   const p=await store.get(K_PREF); if(p) PREFS={...PREFS,...p};
-  else if(window.matchMedia('(prefers-color-scheme: light)').matches) PREFS.theme='light';
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) PREFS.theme='light';
   const l=await store.get(K_LOG); if(l) LOG=l;
+  const fd=await store.get(K_FOOD); if(fd) FOOD=fd;
+  const cf=await store.get(K_CF); if(cf) CUSTOM=cf;
+
+  const moved=importLegacy();
+  if(moved) await store.set(K_FOOD,FOOD);
+
   applyTheme(PREFS.theme);
-  renderWeeks(); renderLifts(); renderFuel(); renderGrid(); renderStats(); renderRecent();
   const t=new Date();
   const key = t<START?iso(START) : (t>END?iso(END):iso(t));
+  ACTIVE = key;
   const di=document.getElementById('logDate');
   di.min=iso(START); di.max=iso(END); di.value=key;
+
+  renderWeeks(); renderLifts(); renderFuel(); fillTargets();
+  renderFood(); renderGrid(); renderStats(); renderRecent(); renderBackupNudge(); checkOrigin();
   loadDay(key);
+
+  // Probe write-ability once so the warning banner is accurate.
+  try{ window.localStorage.setItem('block76:probe','1'); window.localStorage.removeItem('block76:probe'); PERSIST='local'; }
+  catch(e){ if(!window.storage) showPersistWarn(); }
+  if(moved) toast(moved+' day'+(moved>1?'s':'')+' imported from your macro tracker');
 })();
 </script>
 </body>
