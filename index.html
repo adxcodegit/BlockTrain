@@ -162,7 +162,9 @@ input[type=number],input[type=text],input[type=date],textarea,select{
   width:100%;max-width:100%;min-width:0;display:block;
   background:var(--surface2);border:1px solid var(--line);color:var(--ink);
   border-radius:12px;padding:13px 14px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:16px;
+  transition: border-color 0.2s;
 }
+input:focus, select:focus, textarea:focus { border-color: var(--lift); outline: none; }
 /* iOS gives date inputs an intrinsic width and centres their inner value box,
    which pushes the text past the padding edge. Reset all of it. */
 input[type=date]{
@@ -194,14 +196,15 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .seg{display:flex;gap:6px}
 .seg button{flex:1;padding:11px 0;border-radius:11px;border:1px solid var(--line);background:var(--surface2);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;min-height:46px}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
-.btn{width:100%;padding:15px;border-radius:13px;background:var(--ink);color:var(--bg);font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:16px;letter-spacing:-.015em;margin-top:18px;min-height:50px}
+.btn{width:100%;padding:15px;border-radius:13px;background:var(--ink);color:var(--bg);font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:16px;letter-spacing:-.015em;margin-top:18px;min-height:50px; cursor: pointer; transition: transform 0.15s;}
+.btn:active {transform: scale(0.97);}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:600;margin-top:9px}
 .toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);padding:13px 16px;border-radius:13px;font-weight:700;font-size:14px;text-align:center;opacity:0;transform:translateY(8px);pointer-events:none;transition:.25s;max-width:528px;margin:0 auto}
 .toast.on{opacity:1;transform:none}
 
 /* ---------- tabs ---------- */
 .tabs{
-  position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(5,1fr);
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(6,1fr);
   background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(16px) saturate(1.6);
   -webkit-backdrop-filter:blur(16px) saturate(1.6);
   border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));
@@ -227,9 +230,10 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .callout{border-left:2.5px solid var(--warn);padding:1px 0 1px 14px;margin:13px 0;font-size:13.5px;line-height:1.55}
 .callout.run{border-color:var(--run)}
 .callout.lift{border-color:var(--lift)}
-/* ---------- food / macros ---------- */
+/* ---------- food / macros / workouts ---------- */
 .datenav{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.datenav button.nav{width:44px;height:44px;flex:0 0 44px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);display:grid;place-items:center}
+.datenav button.nav{width:44px;height:44px;flex:0 0 44px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);display:grid;place-items:center; transition: background 0.1s;}
+.datenav button.nav:active {background: var(--line);}
 .datenav button.nav svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .datenav .mid{flex:1;min-width:0;text-align:center}
 .datenav .mid .a{font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;font-weight:700;font-size:16px;letter-spacing:-.02em;line-height:1.15}
@@ -267,13 +271,13 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .gramrow button:disabled{opacity:.35}
 .prev{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11.5px;color:var(--ink2);margin-top:8px;text-align:center}
 
-.entry{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.entry{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
 .entry:last-child{border-bottom:0}
-.entry .nm{flex:1;min-width:0;font-size:14px;font-weight:600;letter-spacing:-.01em}
-.entry .nm em{display:block;font-style:normal;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);font-weight:400;margin-top:2px}
+.entry .nm{flex:1;min-width:0;font-size:14.5px;font-weight:600;letter-spacing:-.01em; line-height: 1.3;}
+.entry .nm em{display:block;font-style:normal;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:11px;color:var(--ink2);font-weight:400;margin-top:4px}
 .entry .kc{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;font-size:13px;white-space:nowrap}
-.entry .del{width:34px;height:34px;flex:0 0 34px;border-radius:9px;display:grid;place-items:center}
-.entry .del:active{background:var(--surface2)}
+.entry .del{width:34px;height:34px;flex:0 0 34px;border-radius:9px;display:grid;place-items:center; transition: 0.1s;}
+.entry .del:active{background:var(--surface2); transform:scale(0.9);}
 .entry .del svg{width:15px;height:15px;stroke:var(--ink2);fill:none;stroke-width:2;stroke-linecap:round}
 
 .banner{border:1px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);color:var(--ink);border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.5;margin-bottom:12px}
@@ -281,6 +285,31 @@ textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resi
 .linkline{width:100%;text-align:center;padding:12px 0 2px;font-size:13px;color:var(--ink2);font-weight:600;min-height:44px}
 
 svg.spark{width:100%;height:74px;display:block;overflow:visible}
+
+/* Interactive Workout Grid */
+.wo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 280px; overflow-y: auto; padding: 4px; margin: 0 -4px; scrollbar-width: thin; }
+.wo-grid button { padding: 12px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface2); color: var(--ink); font-size: 11.5px; line-height:1.2; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.wo-grid button:active { transform: scale(0.94); }
+.wo-grid button.on { background: var(--lift); color: #fff; border-color: var(--lift); box-shadow: 0 4px 12px color-mix(in srgb, var(--lift) 40%, transparent); transform: translateY(-1px); }
+.wo-grid button.building { border-color: var(--lift); color: var(--lift); background: color-mix(in srgb, var(--lift) 10%, transparent); }
+
+/* Set logging form */
+.wo-inputs { display: grid; grid-template-columns: 0.8fr 1.2fr 1fr 1fr; gap: 10px; background: var(--surface2); padding: 12px; border-radius: 14px; border: 1px solid var(--line); margin-bottom: 4px; }
+.wo-inputs input { background: var(--surface); text-align: center; padding: 10px 4px; font-weight: 600; border-color: var(--line); }
+
+#logSetBtn { background: var(--lift); color: #fff; box-shadow: 0 4px 14px color-mix(in srgb, var(--lift) 40%, transparent); transition: transform 0.2s, box-shadow 0.2s; min-height: 48px; border-radius: 12px; }
+#logSetBtn:active { transform: scale(0.97); box-shadow: none; }
+
+/* Smooth Reveal Animations */
+.slide-down { animation: slideDown 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; transform-origin: top center; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px) scaleY(0.95); }
+  to { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Custom Badges for Logged Sets */
+.wo-badge { display: inline-block; padding: 3px 7px; border-radius: 6px; background: var(--surface2); color: var(--ink); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 600; border: 1px solid var(--line); margin-right: 5px; margin-top: 5px; vertical-align: top;}
+.wo-badge.set { background: color-mix(in srgb, var(--lift) 15%, transparent); color: var(--lift); border-color: color-mix(in srgb, var(--lift) 30%, transparent); }
 </style>
 </head>
 <body>
@@ -289,7 +318,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   <div class="daychip"><b class="mono" id="dayNum">—</b><span>Day</span></div>
   <div class="brand">
     <div class="eyebrow">1 Sep → 15 Nov 2026</div>
-    <div class="title">The Block</div>
+    <div class="title">75 BLOCK</div>
   </div>
   <button class="tgl" id="themeBtn" aria-label="Switch theme">
     <svg id="themeIcon" viewBox="0 0 24 24"></svg>
@@ -439,6 +468,54 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   </div>
 </section>
 
+<!-- ============ WORKOUT ============ -->
+<section class="pane" id="pane-workout">
+  <div class="datenav">
+    <button class="nav" id="wPrev" aria-label="Previous day"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="mid"><div class="a" id="wDayA">Today</div><div class="b" id="wDayB"></div></div>
+    <button class="nav" id="wNext" aria-label="Next day"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+  
+  <div class="card">
+    <div class="eyebrow" style="display:flex;justify-content:space-between">
+      <span>Routine Preset</span>
+      <button id="btnNewPreset" style="color:var(--lift);font-weight:700;font-size:11.5px;text-transform:uppercase; letter-spacing:0.05em;">+ Build</button>
+    </div>
+    <select id="woPresetSel"></select>
+    
+    <div id="presetBuilder" hidden style="margin-top:12px; padding-top:14px; border-top:1px solid var(--line)">
+      <label class="f" style="margin-top:0">New Preset Name</label>
+      <input type="text" id="presetNameIn" placeholder="e.g. Push Day">
+      <p class="tiny muted" style="margin:8px 0 12px">Tap exercises from the grid below to include in this preset.</p>
+      <div class="two">
+        <button class="btn" id="savePresetBtn" style="margin-top:0; min-height:44px; padding:10px;">Save</button>
+        <button class="btn ghost" id="cancelPresetBtn" style="margin-top:0; min-height:44px; padding:10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="eyebrow">Select Exercise</div>
+    <div class="wo-grid" id="woExGrid"></div>
+    
+    <div id="setForm" hidden style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line)">
+       <div class="eyebrow" style="color:var(--lift);font-size:11.5px" id="lblActiveEx">Active Exercise</div>
+       <div class="wo-inputs">
+         <div><label class="f" style="margin-top:0">Set</label><input type="number" id="woSetIn" inputmode="numeric"></div>
+         <div><label class="f" style="margin-top:0">Kg / Km</label><input type="number" id="woWIn" step="0.5" inputmode="decimal"></div>
+         <div><label class="f" style="margin-top:0">Reps</label><input type="text" id="woRIn"></div>
+         <div><label class="f" style="margin-top:0">RPE</label><input type="number" id="woRpeIn" inputmode="numeric"></div>
+       </div>
+       <button class="btn" id="logSetBtn">Log Set</button>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="eyebrow" style="display:flex;justify-content:space-between"><span>Workout Log</span><span class="mono" id="woCount"></span></div>
+    <div id="woLog"></div>
+  </div>
+</section>
+
 <!-- ============ LOG ============ -->
 <section class="pane" id="pane-log">
   <div class="card">
@@ -476,8 +553,9 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
     <textarea id="noteIn" placeholder="Niggles, sleep, what you'd change…"></textarea>
 
     <button class="btn" id="saveLog">Save the day</button>
-    <button class="btn ghost" id="exportBtn">Export all data</button>
-    <button class="btn ghost" id="importBtn">Import a backup</button>
+    <button class="btn ghost" id="exportBtn">Back up — training + food</button>
+    <button class="btn ghost" id="copyBtn">Copy backup as text</button>
+    <button class="btn ghost" id="importBtn">Restore from a backup</button>
     <input type="file" id="importFile" accept="application/json" hidden>
   </div>
 
@@ -559,6 +637,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   <button role="tab" aria-selected="true" data-p="block"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2.5v3M16 2.5v3"/></svg><span>Block</span></button>
   <button role="tab" aria-selected="false" data-p="train"><svg viewBox="0 0 24 24"><path d="M6.5 8v8M17.5 8v8M3 10v4M21 10v4M6.5 12h11"/></svg><span>Train</span></button>
   <button role="tab" aria-selected="false" data-p="fuel"><svg viewBox="0 0 24 24"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M17.5 3c-1.5 2-2 4-2 6.5 0 1.5.7 2.5 2 2.5V21"/></svg><span>Fuel</span></button>
+  <button role="tab" aria-selected="false" data-p="workout"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Workout</span></button>
   <button role="tab" aria-selected="false" data-p="food"><svg viewBox="0 0 24 24"><path d="M12 7.5c-1-2.2-3-3.3-5-2.6C4.6 5.8 3.5 8.4 4.2 11c.9 3.6 4 6.9 7.8 9 3.8-2.1 6.9-5.4 7.8-9 .7-2.6-.4-5.2-2.8-6.1-2-.7-4 .4-5 2.6Z"/></svg><span>Food</span></button>
   <button role="tab" aria-selected="false" data-p="log"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span>Log</span></button>
 </nav>
@@ -586,29 +665,34 @@ const store = {
     return ok;
   }
 };
+/* ── The one address this app should live at. Saved data is tied to the exact
+   hostname, so if you ever move the site, change this line too. ────────── */
+const CANONICAL_HOST = 'www.adityanair.co.in';
+
 function checkOrigin(){
   const h=location.hostname;
-  if(!h||h==='localhost'||h==='127.0.0.1') return;
-  const bad = h.startsWith('www.') || h.endsWith('.github.io');
-  if(!bad) return;
+  if(!h || h==='localhost' || h==='127.0.0.1' || location.protocol==='file:') return;
+  if(h===CANONICAL_HOST) return;
+  if(('www.'+h)===CANONICAL_HOST) return;
   const el=document.getElementById('persistWarn'); if(!el) return;
-  el.insertAdjacentHTML('beforeend','<div class="banner"><b>Wrong address.</b> You are on <span class="mono">'+h.replace(/[<>&"]/g,'')+'</span>. Saved data is tied to the exact domain, so anything you log here will not appear at <span class="mono">adityanair.co.in</span>. Open it there instead — and bookmark that one.</div>');
+  const safe=h.replace(/[<>&"]/g,'');
+  el.insertAdjacentHTML('beforeend','<div class="banner"><b>Different address.</b> You are on <span class="mono">'+safe+'</span>, not <span class="mono">'+CANONICAL_HOST+'</span>. Saved data is tied to the exact hostname, so days logged here will not show up there. Back up before you carry on.</div>');
 }
 function showPersistWarn(){
   const el=document.getElementById('persistWarn'); if(!el||el.dataset.shown) return;
   el.dataset.shown='1';
   el.innerHTML='<div class="banner"><b>Nothing is being saved.</b> This browser is blocking storage — most likely Private Browsing. Everything you enter will vanish when you close the tab. Turn Private Browsing off, or export your data before you leave.</div>';
 }
-const K_LOG='block76:log', K_PREF='block76:prefs', K_FOOD='block76:food', K_CF='block76:customfoods';
-let LOG = {}, FOOD = {}, CUSTOM = [], PREFS = {theme:'dark', startW:90, targets:null};
+const K_LOG='block76:log', K_PREF='block76:prefs', K_FOOD='block76:food', K_CF='block76:customfoods', K_WORK='block76:workout';
+let LOG = {}, FOOD = {}, CUSTOM = [], WORKOUT = {}, PREFS = {theme:'dark', startW:90, targets:null, presets:{}};
 let ACTIVE = null;
 
 /* ============================================================
    PLAN DATA
    ============================================================ */
-const START = new Date(2026,8,1);      // Tue 1 Sep 2026
-const END   = new Date(2026,10,15);    // Sun 15 Nov 2026 — race day
-const GRID_START = new Date(2026,7,31);// Mon 31 Aug (leading blank)
+const START = new Date(2026,8,1);
+const END   = new Date(2026,10,15);
+const GRID_START = new Date(2026,7,31);
 
 const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const addD = (d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
@@ -623,66 +707,56 @@ const WEEKS=[
         sat:{t:'Easy',d:'5 km easy, flat route',km:5},
         sun:{t:'Long run',d:'8 km easy. Walk breaks are allowed and cost you nothing.',km:8}},
   note:'The block starts on a Tuesday, so Upper A is skipped once. This week is calibration — find the loads you can hit for the prescribed reps with 2 in reserve, and write them down.'},
-
  {n:2,mon:'2026-09-07',tag:'Build',km:26,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 8 × 400 m hard w/ 400 m jog → 1 km easy',km:6},
         thu:{t:'Tempo',d:'2 km easy → 2 × 8 min tempo w/ 3 min jog → 1 km easy',km:6},
         sat:{t:'Easy',d:'5 km easy',km:5},
         sun:{t:'Long run',d:'10 km easy, negative-split the last 2 km slightly',km:10}}},
-
  {n:3,mon:'2026-09-14',tag:'Build',km:29,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 5 × 800 m hard w/ 400 m jog → 1 km easy',km:6.5},
         thu:{t:'Tempo',d:'2 km easy → 3 × 8 min tempo w/ 2 min jog → 1 km easy',km:7},
         sat:{t:'Easy',d:'5 km easy',km:5},
         sun:{t:'Long run',d:'12 km easy. Practise your pre-run breakfast here.',km:12}}},
-
  {n:4,mon:'2026-09-21',tag:'Absorb',km:23,deload:true,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 6 × 400 m hard w/ 400 m jog → 1 km easy',km:5},
         thu:{t:'Easy',d:'5 km easy + 6 × 20 s strides',km:5},
         sat:{t:'Easy',d:'4 km easy',km:4},
         sun:{t:'Long run',d:'9 km easy',km:9}},
   note:'Deload. Drop one set from every strength exercise and keep loads the same. You are not losing fitness — you are letting three weeks of work land.'},
-
  {n:5,mon:'2026-09-28',tag:'Build',km:33,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 6 × 800 m hard w/ 400 m jog → 1 km easy',km:7},
         thu:{t:'Tempo',d:'2 km easy → 2 × 12 min tempo w/ 3 min jog → 1 km easy',km:7},
         sat:{t:'Easy',d:'6 km easy',km:6},
         sun:{t:'Long run',d:'14 km easy — first fuelled long run. Take 30 g carbs at 45 min.',km:14}},
   note:'From this week onward, every long run over 75 minutes gets fuelled. Train the gut now so nothing is a surprise in November.'},
-
  {n:6,mon:'2026-10-05',tag:'Build',km:36,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 4 × 1000 m hard w/ 600 m jog → 1 km easy',km:7.5},
         thu:{t:'Tempo',d:'2 km easy → 20 min continuous tempo → 1 km easy',km:7},
         sat:{t:'Easy',d:'6 km easy',km:6},
         sun:{t:'Long run',d:'16 km easy, fuel at 45 and 90 min',km:16}}},
-
  {n:7,mon:'2026-10-12',tag:'Absorb',km:27,deload:true,
   runs:{tue:{t:'Easy',d:'5 km easy + 8 × 20 s strides',km:5},
         thu:{t:'Steady',d:'6 km steady',km:6},
         sat:{t:'Easy',d:'5 km easy',km:5},
         sun:{t:'Long run',d:'11 km easy',km:11}},
   note:'Second deload. Same rule: one set off everything. Check your 7-day weight average against the target line and adjust calories once — not weekly.'},
-
  {n:8,mon:'2026-10-19',tag:'Build',km:39,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 5 × 1000 m hard w/ 600 m jog → 1 km easy',km:8.5},
         thu:{t:'Tempo',d:'2 km easy → 2 × 15 min tempo w/ 3 min jog → 1 km easy',km:8},
         sat:{t:'Easy',d:'6 km easy',km:6},
         sun:{t:'Long run',d:'18 km easy — wear exactly what you plan to wear on race day',km:18}}},
-
  {n:9,mon:'2026-10-26',tag:'Peak',km:41,peak:true,
   runs:{tue:{t:'Tempo',d:'1.5 km easy → 6 × 800 m at half-marathon effort w/ 200 m jog → 1 km easy',km:7.5},
         thu:{t:'Tempo',d:'2 km easy → 25 min continuous tempo → 1 km easy',km:8},
         sat:{t:'Easy',d:'6 km easy',km:6},
         sun:{t:'Long run',d:'19 km — longest run of the block. Last 3 km at target race effort.',km:19}},
   note:'Biggest week. If anything is going to break, it breaks here — so this is the week to be conservative in the gym. Cut Saturday lower body entirely if the legs are complaining.'},
-
  {n:10,mon:'2026-11-02',tag:'Taper',km:31,
   runs:{tue:{t:'Speed',d:'1.5 km easy → 4 × 800 m hard w/ 400 m jog → 1 km easy',km:6},
         thu:{t:'Tempo',d:'2 km easy → 15 min tempo → 1 km easy',km:6},
         sat:{t:'Easy',d:'5 km easy',km:5},
         sun:{t:'Long run',d:'14 km easy',km:14}},
   note:'Volume drops, intensity stays. Strength drops to 2 sets per exercise at the same load. You will feel restless and slightly fat — that is exactly what taper feels like. Do not add sessions.'},
-
  {n:11,mon:'2026-11-09',tag:'Race week',km:33,race:true,
   runs:{tue:{t:'Easy',d:'5 km easy + 4 × 20 s strides',km:5},
         thu:{t:'Easy',d:'4 km easy',km:4},
@@ -744,7 +818,6 @@ const LIFTS={
   ]}
 };
 
-/* which sessions fall on which weekday */
 function planFor(d){
   const wd=d.getDay(), w=weekOf(d);
   if(!w) return null;
@@ -761,7 +834,7 @@ function weekOf(d){
 }
 function targetCount(d){
   const p=planFor(d); if(!p) return 0;
-  let n=2; // fuel + sleep
+  let n=2;
   if(p.run) n++; if(p.lift) n++;
   return Math.max(n,3);
 }
@@ -995,7 +1068,7 @@ function loadDay(key){
   document.getElementById('logPlan').innerHTML='<div class="eyebrow">On the plan today</div>'+planSummary(key);
   if(typeof renderFuelReadout==='function') renderFuelReadout();
 }
-document.getElementById('logDate').addEventListener('change',e=>{ loadDay(e.target.value); ACTIVE=e.target.value; picked=null; renderFood(); });
+document.getElementById('logDate').addEventListener('change',e=>{ loadDay(e.target.value); ACTIVE=e.target.value; picked=null; renderFood(); renderWorkout(); });
 document.getElementById('saveLog').onclick=async()=>{
   const key=document.getElementById('logDate').value; if(!key) return toast('Pick a date first');
   const w=parseFloat(document.getElementById('wIn').value);
@@ -1012,13 +1085,40 @@ document.getElementById('saveLog').onclick=async()=>{
   const s=(LOG[key].run?1:0)+(LOG[key].lift?1:0)+(LOG[key].fuel?1:0)+(LOG[key].sleep?1:0);
   toast(s>=4?'Perfect day logged':'Day saved · '+s+'/4 pillars');
 };
-document.getElementById('exportBtn').onclick=()=>{
-  const payload={v:2,exported:new Date().toISOString(),prefs:PREFS,log:LOG,food:FOOD,customFoods:CUSTOM};
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='block76-'+iso(new Date())+'.json'; a.click();
-  PERFS_EXPORT();
-  toast('Exported — training and food');
+function backupPayload(){
+  return JSON.stringify({v:2,exported:new Date().toISOString(),
+    prefs:PREFS,log:LOG,food:FOOD,customFoods:CUSTOM,workout:WORKOUT},null,2);
+}
+document.getElementById('exportBtn').onclick=async()=>{
+  const text=backupPayload(), name='block76-'+iso(new Date())+'.json';
+  try{
+    const file=new File([text],name,{type:'application/json'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:name});
+      await PERFS_EXPORT(); toast('Backed up'); return;
+    }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  try{
+    const blob=new Blob([text],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    await PERFS_EXPORT(); toast('Saved to Files');
+  }catch(e){ toast('Download blocked — use Copy instead'); }
+};
+document.getElementById('copyBtn').onclick=async()=>{
+  const text=backupPayload();
+  try{
+    await navigator.clipboard.writeText(text);
+    await PERFS_EXPORT(); toast('Copied — paste it into Notes or an email');
+  }catch(e){
+    const ta=document.createElement('textarea'); ta.value=text;
+    ta.style.cssText='position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0,text.length);
+    const ok=document.execCommand('copy'); ta.remove();
+    if(ok){ await PERFS_EXPORT(); toast('Copied to clipboard'); } else toast("Couldn't copy");
+  }
 };
 async function PERFS_EXPORT(){ PREFS.lastExport=Date.now(); await store.set(K_PREF,PREFS); renderBackupNudge(); }
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
@@ -1029,9 +1129,10 @@ document.getElementById('importFile').onchange=async ev=>{
     if(d.log) LOG={...LOG,...d.log};
     if(d.food) FOOD={...FOOD,...d.food};
     if(d.customFoods) { const have=new Set(CUSTOM.map(x=>x.id)); CUSTOM=CUSTOM.concat(d.customFoods.filter(x=>!have.has(x.id))); }
+    if(d.workout) WORKOUT={...WORKOUT,...d.workout};
     if(d.prefs) PREFS={...PREFS,...d.prefs};
-    await store.set(K_LOG,LOG); await store.set(K_FOOD,FOOD); await store.set(K_CF,CUSTOM); await store.set(K_PREF,PREFS);
-    applyTheme(PREFS.theme); fillTargets(); renderFuel(); renderFood(); renderGrid(); renderStats(); renderRecent();
+    await store.set(K_LOG,LOG); await store.set(K_FOOD,FOOD); await store.set(K_CF,CUSTOM); await store.set(K_WORK,WORKOUT); await store.set(K_PREF,PREFS);
+    applyTheme(PREFS.theme); fillTargets(); renderFuel(); renderFood(); renderWorkout(); renderGrid(); renderStats(); renderRecent();
     toast('Data restored');
   }catch(e){ toast("Couldn't read that file"); }
   ev.target.value='';
@@ -1064,6 +1165,226 @@ function renderRecent(){
   el.innerHTML=rows.length?rows.join(''):'<p class="small muted" style="margin:0">Nothing logged yet. Fill this in tonight — the tracker only works if it is boring and daily.</p>';
 }
 
+/* ============================================================
+   WORKOUT TRACKING
+   ============================================================ */
+const EX_LIST = [
+  "BB Squat", "Leg Press", "Leg Ext", "Leg Curl", "Abductor", "Adductor", "Lunge", "Calf Raise", "RDL",
+  "BB Flat", "BB Incline", "DB Flat", "DB Incline", "Fly Machine", "Fly Cable", "Pushups",
+  "Lat Pull", "Cable Row", "Iso Row", "DB Row", "Deadlift", "1-Arm Pull", "Pull Over", "Pull Up",
+  "Mil Press", "BB Press", "Mach Press", "DB Press", "Arnold Pr", "Lat Raise",
+  "Tri Ext", "Tri Push", "Bi Curl", "Preacher", "Crunches", "Leg Raise", "Run (S)", "Run (L)"
+];
+let activeWoEx = null;
+let isBuildingPreset = false;
+let presetDraft = new Set();
+
+function initPresets(){
+  if(!PREFS.presets) PREFS.presets = {};
+  if(Object.keys(PREFS.presets).length === 0){
+    PREFS.presets = {
+      "Upper A": ["BB Flat", "DB Incline", "Lat Pull", "Cable Row", "Tri Push", "Bi Curl"],
+      "Upper B": ["BB Incline", "DB Flat", "Pull Up", "DB Row", "Tri Ext", "Preacher"],
+      "Lower A": ["BB Squat", "Leg Press", "Leg Ext", "Leg Curl", "Calf Raise", "Crunches"],
+      "Lower B": ["Deadlift", "Lunge", "RDL", "Mil Press", "Lat Raise", "Leg Raise"]
+    };
+  }
+}
+
+function updatePresetDropdown(){
+  const sel = document.getElementById('woPresetSel');
+  let current = sel.value;
+  sel.innerHTML = '<option value="">All Exercises</option>' + 
+    Object.keys(PREFS.presets).map(p => `<option value="${p}">${p}</option>`).join('');
+  if(PREFS.presets[current]) sel.value = current;
+}
+
+function renderWoGrid(){
+  const grid = document.getElementById('woExGrid');
+  const selPreset = document.getElementById('woPresetSel').value;
+  
+  let toShow = EX_LIST;
+  if(!isBuildingPreset && selPreset && PREFS.presets[selPreset]){
+    toShow = PREFS.presets[selPreset];
+  }
+  
+  grid.innerHTML = toShow.map(ex => {
+    let cls = '';
+    if(isBuildingPreset && presetDraft.has(ex)) cls = 'building';
+    if(!isBuildingPreset && activeWoEx === ex) cls = 'on';
+    return `<button class="${cls}" data-ex="${ex}">${ex}</button>`;
+  }).join('');
+  
+  grid.querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      const ex = btn.dataset.ex;
+      if(isBuildingPreset){
+        if(presetDraft.has(ex)) presetDraft.delete(ex); else presetDraft.add(ex);
+        renderWoGrid();
+      } else {
+        activeWoEx = ex;
+        renderWoGrid();
+        showSetForm();
+      }
+    };
+  });
+}
+
+function showSetForm(){
+  if(!activeWoEx) return;
+  const form = document.getElementById('setForm');
+  form.hidden = false;
+  form.classList.add('slide-down');
+  
+  // Re-trigger animation cleanly
+  form.style.animation = 'none';
+  form.offsetHeight; 
+  form.style.animation = null;
+
+  document.getElementById('lblActiveEx').textContent = activeWoEx;
+  
+  let wData = WORKOUT[ACTIVE];
+  if(Array.isArray(wData)) wData = { preset: '', logs: wData };
+  const list = wData ? wData.logs : [];
+  
+  const loggedForEx = list.filter(l => l.name === activeWoEx);
+  let nextSet = 1;
+  if(loggedForEx.length > 0){
+    const maxS = Math.max(...loggedForEx.map(l => l.s || 0));
+    nextSet = maxS > 0 ? maxS + 1 : loggedForEx.length + 1;
+  }
+  
+  document.getElementById('woSetIn').value = nextSet;
+  document.getElementById('woWIn').focus();
+}
+
+document.getElementById('woPresetSel').addEventListener('change', (e) => {
+  activeWoEx = null;
+  document.getElementById('setForm').hidden = true;
+  document.getElementById('setForm').classList.remove('slide-down');
+  renderWoGrid();
+});
+
+document.getElementById('btnNewPreset').onclick = () => {
+  isBuildingPreset = true;
+  presetDraft.clear();
+  document.getElementById('woPresetSel').disabled = true;
+  document.getElementById('btnNewPreset').hidden = true;
+  
+  const pb = document.getElementById('presetBuilder');
+  pb.hidden = false;
+  pb.classList.add('slide-down');
+  
+  document.getElementById('setForm').hidden = true;
+  document.getElementById('setForm').classList.remove('slide-down');
+  activeWoEx = null;
+  document.getElementById('presetNameIn').value = '';
+  renderWoGrid();
+};
+
+document.getElementById('cancelPresetBtn').onclick = () => {
+  isBuildingPreset = false;
+  document.getElementById('woPresetSel').disabled = false;
+  document.getElementById('btnNewPreset').hidden = false;
+  document.getElementById('presetBuilder').hidden = true;
+  document.getElementById('presetBuilder').classList.remove('slide-down');
+  renderWoGrid();
+};
+
+document.getElementById('savePresetBtn').onclick = async () => {
+  const nm = document.getElementById('presetNameIn').value.trim();
+  if(!nm) return toast('Give the preset a name');
+  if(presetDraft.size === 0) return toast('Select at least one exercise');
+  
+  PREFS.presets[nm] = Array.from(presetDraft);
+  await store.set(K_PREF, PREFS);
+  
+  isBuildingPreset = false;
+  document.getElementById('woPresetSel').disabled = false;
+  document.getElementById('btnNewPreset').hidden = false;
+  document.getElementById('presetBuilder').hidden = true;
+  document.getElementById('presetBuilder').classList.remove('slide-down');
+  
+  updatePresetDropdown();
+  document.getElementById('woPresetSel').value = nm;
+  renderWoGrid();
+  toast('Preset saved');
+};
+
+document.getElementById('logSetBtn').onclick = async () => {
+  if(!activeWoEx) return;
+  const s = parseInt(document.getElementById('woSetIn').value);
+  const w = parseFloat(document.getElementById('woWIn').value);
+  const r = document.getElementById('woRIn').value.trim();
+  const rpe = parseFloat(document.getElementById('woRpeIn').value);
+  
+  let targetData = WORKOUT[ACTIVE];
+  if(!targetData) targetData = { preset: '', logs: [] };
+  else if(Array.isArray(targetData)) targetData = { preset: '', logs: targetData };
+
+  targetData.logs.push({
+    id: 'w'+Date.now(), name: activeWoEx, 
+    s: isNaN(s)?null:s, w: isNaN(w)?null:w, r: r, rpe: isNaN(rpe)?null:rpe
+  });
+  WORKOUT[ACTIVE] = targetData;
+  
+  await store.set(K_WORK, WORKOUT);
+  
+  // Prep for next set
+  document.getElementById('woSetIn').value = (isNaN(s)? 1 : s) + 1;
+  document.getElementById('woRpeIn').value = ''; 
+  // Leave weight and reps filled as they often stay the same
+  
+  renderWorkoutLog();
+  toast('Set logged');
+};
+
+function renderWorkoutLog(){
+  const list = (WORKOUT[ACTIVE] && !Array.isArray(WORKOUT[ACTIVE])) ? WORKOUT[ACTIVE].logs : (WORKOUT[ACTIVE]||[]);
+  document.getElementById('woCount').textContent = list.length ? (list.length+' item'+(list.length>1?'s':'')) : '';
+  const el = document.getElementById('woLog');
+  
+  el.innerHTML = list.length ? list.map(e => {
+    let badges = '';
+    if(e.s) badges += `<span class="wo-badge set">Set ${e.s}</span>`;
+    if(e.w) badges += `<span class="wo-badge">${r1(e.w)} kg</span>`;
+    if(e.r) badges += `<span class="wo-badge">${esc(e.r)} reps</span>`;
+    if(e.rpe) badges += `<span class="wo-badge">RPE ${e.rpe}</span>`;
+    if(!badges) badges = `<span class="wo-badge">Logged</span>`;
+
+    return '<div class="entry" style="align-items:flex-start;"><span class="nm" style="margin-top:2px;">'+esc(e.name)+'<div style="margin-top:4px;">'+badges+'</div></span>'
+    +'<button class="del" style="margin-top:2px;" data-wdel="'+e.id+'" aria-label="Remove"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>';
+  }).join('') : '<p class="small muted" style="margin:0">No activities logged for this day yet.</p>';
+
+  el.querySelectorAll('[data-wdel]').forEach(b => b.onclick = async () => {
+    let targetData = WORKOUT[ACTIVE];
+    if(Array.isArray(targetData)) targetData = { preset: '', logs: targetData };
+    targetData.logs = targetData.logs.filter(e => e.id !== b.dataset.wdel);
+    if(!targetData.logs.length) delete WORKOUT[ACTIVE];
+    else WORKOUT[ACTIVE] = targetData;
+    await store.set(K_WORK, WORKOUT); 
+    renderWorkoutLog();
+  });
+}
+
+function renderWorkout(){
+  const key=ACTIVE, d=new Date(key+'T00:00:00');
+  document.getElementById('wDayA').textContent = (key===iso(new Date()))?'Today':(DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]);
+  const inBlock = d>=START && d<=END;
+  document.getElementById('wDayB').textContent = inBlock ? ('Day '+dayNo(d)+' · '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()) : d.toDateString();
+
+  activeWoEx = null;
+  const form = document.getElementById('setForm');
+  form.hidden = true;
+  form.classList.remove('slide-down');
+  
+  updatePresetDropdown();
+  renderWoGrid();
+  renderWorkoutLog();
+}
+
+document.getElementById('wPrev').onclick=()=>goDay(-1);
+document.getElementById('wNext').onclick=()=>goDay(1);
 
 /* ============================================================
    FOOD — macro tracking, wired into the training plan
@@ -1097,7 +1418,6 @@ function planTargets(){
   const kcal=Math.round((tdee-680)/10)*10, pro=Math.round(w*1.8), fat=Math.round(w*0.75);
   return {kcal, p:pro, f:fat, c:Math.round((kcal-pro*4-fat*9)/4)};
 }
-/* Carb periodisation — hard running days get more fuel, automatically. */
 function dayAdjust(key){
   const d=new Date(key+'T00:00:00'), pl=planFor(d);
   if(!pl||!pl.run||!pl.week) return {kcal:0,c:0,why:''};
@@ -1115,7 +1435,6 @@ function foodTotals(key){
   (FOOD[key]||[]).forEach(e=>{const x=scaleF(e.per100,e.grams);t.kcal+=x.kcal;t.p+=x.p;t.f+=x.f;t.c+=x.c;});
   return t;
 }
-/* Did the day genuinely hit target? Used by the Log tab's Fuel pillar. */
 function fuelHit(key){
   const list=FOOD[key]||[]; if(!list.length) return null;
   const t=foodTotals(key), g=targetsFor(key);
@@ -1192,7 +1511,6 @@ function renderFoodLog(){
     await store.set(K_FOOD,FOOD); renderFood(); syncFuel();
   });
 }
-/* Keep the Log tab's Fuel pillar honest — it now reflects what was actually eaten. */
 async function syncFuel(){
   const d=new Date(ACTIVE+'T00:00:00'), inBlock = d>=START && d<=END;
   const hit=fuelHit(ACTIVE);
@@ -1212,7 +1530,7 @@ function renderFuelReadout(){
 }
 function goDay(delta){
   ACTIVE=iso(addD(new Date(ACTIVE+'T00:00:00'),delta));
-  picked=null; renderFood();
+  picked=null; renderFood(); renderWorkout();
   const li=document.getElementById('logDate');
   if(ACTIVE>=iso(START)&&ACTIVE<=iso(END)){ li.value=ACTIVE; loadDay(ACTIVE); }
 }
@@ -1250,7 +1568,6 @@ document.getElementById('tSave').onclick=async()=>{
 document.getElementById('tReset').onclick=async()=>{
   PREFS.targets=null; await store.set(K_PREF,PREFS); fillTargets(); renderFood(); toast('Back to plan targets');
 };
-/* Pull across anything already logged in the standalone macros tracker. */
 function importLegacy(){
   let n=0;
   try{
@@ -1298,9 +1615,13 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 (async function init(){
   const p=await store.get(K_PREF); if(p) PREFS={...PREFS,...p};
   else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) PREFS.theme='light';
+  
+  initPresets();
+  
   const l=await store.get(K_LOG); if(l) LOG=l;
   const fd=await store.get(K_FOOD); if(fd) FOOD=fd;
   const cf=await store.get(K_CF); if(cf) CUSTOM=cf;
+  const wk=await store.get(K_WORK); if(wk) WORKOUT=wk;
 
   const moved=importLegacy();
   if(moved) await store.set(K_FOOD,FOOD);
@@ -1313,10 +1634,9 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
   di.min=iso(START); di.max=iso(END); di.value=key;
 
   renderWeeks(); renderLifts(); renderFuel(); fillTargets();
-  renderFood(); renderGrid(); renderStats(); renderRecent(); renderBackupNudge(); checkOrigin();
+  renderFood(); renderWorkout(); renderGrid(); renderStats(); renderRecent(); renderBackupNudge(); checkOrigin();
   loadDay(key);
 
-  // Probe write-ability once so the warning banner is accurate.
   try{ window.localStorage.setItem('block76:probe','1'); window.localStorage.removeItem('block76:probe'); PERSIST='local'; }
   catch(e){ if(!window.storage) showPersistWarn(); }
   if(moved) toast(moved+' day'+(moved>1?'s':'')+' imported from your macro tracker');
