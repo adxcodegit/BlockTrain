@@ -12,11 +12,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
+  color-scheme:dark;
   --bg:#0A0E13; --surface:#131A22; --surface2:#1A222C; --ink:#E9EFF5; --ink2:#93A0AE;
   --line:#232D38; --run:#6E96FF; --lift:#FF6098; --done:#2FD6A6; --warn:#F0A83C;
   --shadow:0 1px 0 rgba(255,255,255,.03), 0 8px 24px rgba(0,0,0,.4);
 }
 html[data-theme="light"]{
+  color-scheme:light;
   --bg:#EDEFF3; --surface:#FFFFFF; --surface2:#F5F7FA; --ink:#0E1319; --ink2:#5A6572;
   --line:#DDE2E9; --run:#2C5CFF; --lift:#DB2F70; --done:#12876A; --warn:#B06000;
   --shadow:0 1px 2px rgba(16,24,40,.04), 0 8px 24px rgba(16,24,40,.06);
@@ -153,9 +155,26 @@ hr.rule{border:0;border-top:1px solid var(--line);margin:14px 0}
 /* ---------- form ---------- */
 label.f{display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);font-weight:500;margin:16px 0 7px}
 input[type=number],input[type=text],input[type=date],textarea,select{
-  width:100%;background:var(--surface2);border:1px solid var(--line);color:var(--ink);
+  width:100%;max-width:100%;min-width:0;display:block;
+  background:var(--surface2);border:1px solid var(--line);color:var(--ink);
   border-radius:12px;padding:13px 14px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:16px;
 }
+/* iOS gives date inputs an intrinsic width and centres their inner value box,
+   which pushes the text past the padding edge. Reset all of it. */
+input[type=date]{
+  -webkit-appearance:none;appearance:none;
+  text-align:left;height:50px;line-height:normal;
+}
+input[type=date]::-webkit-date-and-time-value{
+  text-align:left;margin:0;padding:0;min-width:0;width:100%;
+}
+input[type=date]::-webkit-datetime-edit{padding:0;margin:0;overflow:visible}
+input[type=date]::-webkit-datetime-edit-fields-wrapper{padding:0}
+input[type=date]::-webkit-calendar-picker-indicator{
+  margin:0 0 0 auto;padding:0;opacity:.5;cursor:pointer;
+}
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-clear-button{display:none;-webkit-appearance:none}
 textarea{font-family:"Instrument Sans",system-ui,sans-serif;min-height:74px;resize:vertical;font-size:15px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
@@ -213,7 +232,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
   <div class="daychip"><b class="mono" id="dayNum">—</b><span>Day</span></div>
   <div class="brand">
     <div class="eyebrow">1 Sep → 15 Nov 2026</div>
-    <div class="title">The Block Nair</div>
+    <div class="title">The Block AN</div>
   </div>
   <button class="tgl" id="themeBtn" aria-label="Switch theme">
     <svg id="themeIcon" viewBox="0 0 24 24"></svg>
@@ -369,7 +388,7 @@ svg.spark{width:100%;height:74px;display:block;overflow:visible}
     <div class="eyebrow">End of day</div>
     <label class="f" for="logDate">Date</label>
     <input type="date" id="logDate">
-    <div id="logPlan" class="card flat" style="margin:10px 0 0;padding:10px"></div>
+    <div id="logPlan" class="card flat" style="margin:12px 0 0;padding:13px"></div>
 
     <label class="f" for="wIn">Morning weight (kg)</label>
     <input type="number" id="wIn" step="0.1" inputmode="decimal" placeholder="—">
