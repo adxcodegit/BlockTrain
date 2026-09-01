@@ -303,6 +303,13 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
 
 .wo-badge { display: inline-block; padding: 4px 8px; border-radius: 8px; background: var(--surface2); color: var(--ink); font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; border: 1px solid var(--line); margin-right: 6px; margin-top: 6px; vertical-align: top;}
 .wo-badge.set { background: color-mix(in srgb, var(--lift) 15%, transparent); color: var(--lift); border-color: color-mix(in srgb, var(--lift) 30%, transparent); font-weight:600; }
+
+/* last-time reference + portion chips */
+.lastline{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink2);line-height:1.5;margin:-6px 0 12px}
+.lastline b{color:var(--ink);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chips button{padding:8px 14px;border-radius:20px;background:var(--surface2);border:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink2)}
+.chips button:active{border-color:var(--lift);color:var(--lift)}
 </style>
 </head>
 <body>
@@ -329,17 +336,21 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
       <div class="stat"><div class="k">Off the start</div><div class="v" id="stLost">-<small> kg</small></div><div class="s" id="stLostSub">vs. baseline</div></div>
       <div class="stat"><div class="k">Km this week</div><div class="v" id="stKm">-</div><div class="s" id="stKmSub">of target</div></div>
       <div class="stat"><div class="k">Days logged</div><div class="v" id="stDays">-</div><div class="s">of 76</div></div>
+      <div class="stat"><div class="k">Recent pace</div><div class="v" id="stPace">-</div><div class="s" id="stPaceSub">last 3 runs</div></div>
+      <div class="stat"><div class="k">Lifted this week</div><div class="v" id="stTon">-<small> t</small></div><div class="s">total load moved</div></div>
     </div>
     <hr class="rule">
     <div class="tiny muted" style="display:flex;justify-content:space-between;margin-bottom:8px"><span>Block progress</span><span class="mono" id="pctTxt">0%</span></div>
     <div class="bar"><i id="pctBar" style="width:0%"></i></div>
   </div>
 
+  <div id="coach"></div>
+
   <div class="card">
     <div class="eyebrow">Weight trend</div>
     <svg class="spark" id="spark" viewBox="0 0 320 80" preserveAspectRatio="none" aria-label="Weight trend"></svg>
     <div class="tiny muted" style="display:flex;justify-content:space-between;margin-top:12px">
-      <span><b style="color:var(--ink)">-</b> your 7-day average</span>
+      <span><b style="color:var(--ink)" id="sparkNow">-</b> your 7-day average</span>
       <span style="opacity:.7">dashed = target line</span>
     </div>
   </div>
@@ -358,17 +369,22 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
     </div>
   </div>
 
-  <div class="card">
-    <div class="eyebrow">Straight talk before you start</div>
+  <h2 style="margin:24px 0 12px">The thinking behind it</h2>
+
+  <details class="wk">
+    <summary><span class="wt">Straight talk before you start</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
     <p><b>15 kg in 76 days is the wrong target: not because you're incapable, but because it fights the running.</b> It needs a ~1,500 kcal daily deficit while you build to 40 km weeks. You'd bleed muscle, your long runs would fall apart around week 6, and the injury risk on a heavier frame running further goes up sharply.</p>
     <p>So here's the deal I'd make with you as your coach:</p>
     <div class="callout"><b>Primary target: 9-11 kg down by 15 Nov.</b> That's 0.8-1.0 kg/week, aggressive but survivable alongside this mileage. The last 4-6 kg lands over Dec-Jan, which is already your original 75 kg timeline, so you lose nothing.</div>
     <div class="callout run"><b>Primary target: finish 21.1 km on Sun 15 Nov.</b> Finish it, don't race it. Somewhere near 2:45-3:00 at conversational effort is a strong outcome from this base.</div>
-    <p class="small muted">Your actual race is 14 Feb 2027 with a 2:30 goal. This block is the base and the first build. You'll have 13 more weeks after it to sharpen. Treating 15 Nov as a peak race would cost you February.</p>
-  </div>
+    <p class="small muted" style="margin-bottom:0">Your actual race is 14 Feb 2027 with a 2:30 goal. This block is the base and the first build. You'll have 13 more weeks after it to sharpen. Treating 15 Nov as a peak race would cost you February.</p>
+    </div>
+  </details>
 
-  <div class="card">
-    <div class="eyebrow">Your week, and why</div>
+  <details class="wk">
+    <summary><span class="wt">Your week, and why</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
     <table class="ex">
       <tr><td class="n">MON</td><td>Upper A : push<span class="sub">Legs are wrecked from Sunday. Load the upper body instead.</span></td><td class="s">55 min</td></tr>
       <tr><td class="n">TUE</td><td>Run : speed<span class="sub">Freshest running day of the week. Highest-quality work goes here.</span></td><td class="s">40-50 min</td></tr>
@@ -379,11 +395,13 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
       <tr><td class="n">SUN</td><td>Long run<span class="sub">The single most important session in the block. Nothing else competes with it.</span></td><td class="s">50-140 min</td></tr>
     </table>
     <div class="callout lift" style="margin-top:16px"><b>The one rule that makes Saturday work:</b> everything below the waist on Saturday stops 3 reps short of failure. Saturday's lower session exists to keep tissue strong, not to build a squat. Shoulders take the hard volume; legs take the light volume. If Sunday's long run feels heavy two weeks running, cut Saturday's lower work in half.</div>
-    <div class="callout" style="margin-top:10px"><b>Mon-Fri are built to a 90-minute door-to-door clock:</b> ~12 min travel each way, 5 min warm-up, 50 min of work. Everything is supersetted (A1/A2 back-to-back). If you're short on time, cut the last block, never the first.</div>
-  </div>
+    <div class="callout" style="margin:10px 0 0"><b>Mon-Fri are built to a 90-minute door-to-door clock:</b> ~12 min travel each way, 5 min warm-up, 50 min of work. Everything is supersetted (A1/A2 back-to-back). If you're short on time, cut the last block, never the first.</div>
+    </div>
+  </details>
 
-  <div class="card">
-    <div class="eyebrow">Non-negotiables</div>
+  <details class="wk">
+    <summary><span class="wt">Non-negotiables</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
     <table class="ex">
       <tr><td class="n">01</td><td><b>Weigh daily, judge weekly.</b><span class="sub">Same time, post-toilet, pre-food. Only the 7-day average counts. Daily numbers swing 1.5 kg on sodium and glycogen alone.</span></td></tr>
       <tr><td class="n">02</td><td><b>10,000+ steps outside training.</b><span class="sub">Your gym time is capped at 90 min. Steps are the only fat-loss lever you can expand without touching the schedule.</span></td></tr>
@@ -392,6 +410,27 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
       <tr><td class="n">05</td><td><b>Run before 6:30 am or after 7 pm.</b><span class="sub">Mumbai September-October is brutal on humidity. Midday running will wreck your pacing and your fuelling.</span></td></tr>
       <tr><td class="n">06</td><td><b>Sharp pain stops the session.</b><span class="sub">Especially shins and knees. One missed session costs nothing. Six weeks off costs the block.</span></td></tr>
     </table>
+    </div>
+  </details>
+
+  <details class="wk">
+    <summary><span class="wt">When you miss a day</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
+    <p class="small muted">You will miss sessions. Travel, work, an interview that runs long, a bad night. The block doesn't fail there, it fails in how you re-enter. These are the rules, decided now while you're calm rather than at 11 pm on a Wednesday.</p>
+    <table class="ex">
+      <tr><td class="n">01</td><td><b>Never stack a missed session onto the next day.</b><span class="sub">Two hard days back to back is how a missed run becomes a missed week. The session is gone. Let it go.</span></td></tr>
+      <tr><td class="n">02</td><td><b>The long run is the only one worth rescheduling.</b><span class="sub">Move it to Saturday or Monday and shift that day's lift. Everything else you simply skip.</span></td></tr>
+      <tr><td class="n">03</td><td><b>Missed a whole week? Repeat it, don't skip ahead.</b><span class="sub">Restart at the mileage you last actually ran, not the number on the plan. You lose one week, not six to an injury.</span></td></tr>
+      <tr><td class="n">04</td><td><b>Above the neck, train easy. Below the neck, rest.</b><span class="sub">Blocked nose, mild sore throat: easy running is fine. Chest, fever, body aches, stomach: nothing until 24 h clear.</span></td></tr>
+      <tr><td class="n">05</td><td><b>A blown diet day ends at midnight, not at the weekend.</b><span class="sub">One day over target costs roughly a day's progress. Abandoning the week costs the week. Log it honestly and carry on.</span></td></tr>
+      <tr><td class="n">06</td><td><b>If you're choosing, keep the long run and the protein.</b><span class="sub">In a compressed week those two hold the block together. Everything else is optional in a way they are not.</span></td></tr>
+    </table>
+    </div>
+  </details>
+
+  <div class="card flat">
+    <div class="eyebrow">What happens on 16 November</div>
+    <p class="small" style="margin-bottom:0">This block ends, February doesn't. From 16 Nov you get one properly easy week: no lifting below the waist, running only if you feel like it. Then 13 weeks of build into 14 Feb, starting from a 19 km long run rather than an 8 km one. The last 4-6 kg comes off across December and January at a gentler rate, because by then the training is sharper and the deficit has to get smaller. Nothing here is meant to be held at this intensity past 15 Nov.</p>
   </div>
 </section>
 
@@ -413,6 +452,23 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
 
   <h2 style="margin:32px 0 12px">Strength sessions</h2>
   <div id="lifts"></div>
+
+  <h2 style="margin:32px 0 12px">Race day</h2>
+  <details class="wk">
+    <summary><span class="wt">Sunday 15 November</span><span class="wm">21.1 km</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
+    <p class="small muted">Read this in week 9, not on the morning. Everything in it should have been tested on the week 8 and week 9 long runs.</p>
+    <table class="ex">
+      <tr><td class="n">-3h</td><td><b>Eat what you've already tested.</b><span class="sub">Whatever worked before your 18 km run, same amount, same timing. Race morning is the worst possible time for a new breakfast.</span></td></tr>
+      <tr><td class="n">-30m</td><td><b>Nothing new on the body.</b><span class="sub">Shoes with at least 40 km on them, the shorts and vest you ran week 8 in, chafing cream everywhere it has ever rubbed.</span></td></tr>
+      <tr><td class="n">0-5k</td><td><b>Deliberately slower than feels right.</b><span class="sub">You will feel held back and slightly foolish. That is the correct feeling. Everyone passing you now comes back to you after 15 km.</span></td></tr>
+      <tr><td class="n">5-15k</td><td><b>Hold one effort and stop doing maths.</b><span class="sub">Fuel at 45 and 90 minutes whether or not you feel like it. Drink 500-700 ml per hour with electrolytes, not plain water.</span></td></tr>
+      <tr><td class="n">15-18k</td><td><b>This is the part you trained for.</b><span class="sub">Shorten the stride, lift the cadence, keep the effort. If the pace slips here it is normal, not a failure.</span></td></tr>
+      <tr><td class="n">18-21k</td><td><b>Now you're allowed to spend it.</b><span class="sub">Whatever's left goes here. If you have nothing left, walking a bit and finishing is still the outcome that matters.</span></td></tr>
+    </table>
+    <div class="callout" style="margin-bottom:0">Goal is to finish under control, roughly 2:45-3:00. February is the race you're actually training for. Coming out of 15 Nov healthy and able to train the following week is worth more than four minutes on the clock.</div>
+    </div>
+  </details>
 </section>
 
 <!-- ============ FUEL ============ -->
@@ -436,8 +492,9 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
     <div class="callout" style="margin-top:16px">These are starting estimates from bodyweight and training load, not a metabolic test. Recalibrate off reality: if your 7-day average hasn't moved in 10 days, drop 150 kcal. If your long runs are collapsing, add 150 kcal. The scale is the instrument, not the spreadsheet.</div>
   </div>
 
-  <div class="card">
-    <div class="eyebrow">How to spend it</div>
+  <details class="wk">
+    <summary><span class="wt">How to spend it</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="body">
     <table class="ex">
       <tr><td class="n">01</td><td><b>Protein at every meal, 35-45 g each.</b><span class="sub">Eggs, paneer, curd, dal + soya, chicken, fish, whey. In a deficit this is what decides whether you lose fat or lose muscle.</span></td></tr>
       <tr><td class="n">02</td><td><b>Do not run low-carb.</b><span class="sub">Rice and roti are training equipment here. Put the biggest carb meals around Tuesday, Thursday and Sunday sessions.</span></td></tr>
@@ -447,13 +504,8 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
       <tr><td class="n">06</td><td><b>Two free meals a week, planned.</b><span class="sub">Put them Saturday and one weekday. A deficit you can hold for 11 weeks beats a perfect one you abandon in three.</span></td></tr>
       <tr><td class="n">07</td><td><b>Alcohol is the first thing to go.</b><span class="sub">It suppresses fat oxidation, wrecks sleep quality, and its calories buy you nothing at all in this block.</span></td></tr>
     </table>
-  </div>
-
-  <div class="card">
-    <div class="eyebrow">Weekly target line</div>
-    <div id="wtTable"></div>
-    <p class="tiny muted" style="margin-top:12px">Weeks 1-2 drop faster. A chunk of that is water and glycogen, not fat. Don't read it as your rate. Don't panic when week 3 looks slow either.</p>
-  </div>
+    </div>
+  </details>
 
   <div class="card flat">
     <div class="eyebrow">One caveat worth saying plainly</div>
@@ -494,6 +546,7 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
     
     <div id="setForm" hidden style="margin-top:16px; padding-top:16px; border-top:1px solid var(--line)">
        <div class="eyebrow" style="color:var(--lift);font-size:12px; margin-bottom:12px;" id="lblActiveEx">Active Exercise</div>
+       <div class="lastline" id="lblLast"></div>
        <div class="wo-inputs">
          <div><label class="f" style="margin-top:0">Set</label><input type="number" id="woSetIn" inputmode="numeric"></div>
          <div><label class="f" style="margin-top:0">Kg / Km</label><input type="number" id="woWIn" step="0.5" inputmode="decimal"></div>
@@ -527,12 +580,14 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
       <div><label class="f" style="margin-top:0" for="kmIn">Distance (km)</label><input type="number" id="kmIn" step="0.1" inputmode="decimal" placeholder="0"></div>
       <div><label class="f" style="margin-top:0" for="minIn">Time (min)</label><input type="number" id="minIn" inputmode="numeric" placeholder="0"></div>
     </div>
+    <div class="tiny muted mono" id="paceOut" style="margin-top:8px"></div>
     <div class="chk" style="margin-top:12px"><input type="checkbox" id="cLift"><div class="lbl">Lift done<em>All working sets completed</em></div></div>
 
     <label class="f">Pillars</label>
     <div class="chk"><input type="checkbox" id="cFuel"><div class="lbl">Ate to target<em id="fuelReadout">Calories and protein both hit</em></div></div>
     <div class="chk"><input type="checkbox" id="cSleep"><div class="lbl">Slept 7 hours<em>Actual sleep, not time in bed</em></div></div>
     <div class="chk"><input type="checkbox" id="cSteps"><div class="lbl">10,000 steps<em>Outside of training</em></div></div>
+    <div class="chk" id="rowSalt" hidden><input type="checkbox" id="cSalt"><div class="lbl">Fuelled and salted the long run<em>30-45 g carbs per hour, 500-700 ml with electrolytes</em></div></div>
 
     <label class="f" for="rpeIn">How the body felt</label>
     <div class="seg" id="rpeSeg">
@@ -581,6 +636,7 @@ svg.spark{width:100%;height:80px;display:block;overflow:visible;margin-top:8px;}
 
   <div class="card">
     <div class="eyebrow">Add food</div>
+    <div class="cat-scroll" id="fRecent"></div>
     <div class="srch">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input type="text" id="fSearch" placeholder="Search foods..." autocomplete="off" autocorrect="off" spellcheck="false">
@@ -914,15 +970,6 @@ function renderFuel(){
   document.getElementById('fCarb').innerHTML=carb+'<small> g</small>';
   document.getElementById('fFat').innerHTML=fat+'<small> g</small>';
   document.getElementById('startW').value=w;
-
-  let rows='<table class="ex">';
-  WEEKS.forEach(wk=>{
-    const t=(w-(wk.n===1?1.6:1.6+(wk.n-1)*0.95)).toFixed(1);
-    const sun=addD(new Date(wk.mon+'T00:00:00'),6);
-    rows+='<tr><td class="n">W'+String(wk.n).padStart(2,'0')+'</td><td>'+sun.getDate()+' '+MON[sun.getMonth()]+'</td><td class="s">'+t+' kg</td></tr>';
-  });
-  rows+='</table>';
-  document.getElementById('wtTable').innerHTML=rows;
 }
 function targetAt(d){
   const w=PREFS.startW||90;
@@ -943,6 +990,39 @@ function rolling(n){
   }
   return out;
 }
+function avgAt(d,n){
+  const vals=[];
+  for(let j=0;j<n;j++){ const e=LOG[iso(addD(d,-j))]; if(e&&e.w) vals.push(e.w); }
+  return vals.length>=3 ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function paceStr(km,min){
+  if(!km||!min||km<=0) return null;
+  const s=min*60/km;
+  return Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+}
+function recentPace(){
+  const runs=[];
+  for(let i=0;i<80 && runs.length<3;i++){
+    const e=LOG[iso(addD(new Date(),-i))];
+    if(e&&e.km&&e.min) runs.push(e);
+  }
+  if(!runs.length) return null;
+  const km=runs.reduce((a,b)=>a+b.km,0), min=runs.reduce((a,b)=>a+b.min,0);
+  return {p:paceStr(km,min), n:runs.length};
+}
+function weekTonnage(){
+  const mon=new Date(); mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
+  let t=0;
+  for(let i=0;i<7;i++){
+    const wd=WORKOUT[iso(addD(mon,i))];
+    const list=Array.isArray(wd)?wd:(wd?wd.logs:null);
+    (list||[]).forEach(s=>{
+      const reps=parseInt(String(s.r||'').replace(/[^0-9].*$/,''),10)||0;
+      if(s.w&&reps) t+=s.w*reps;
+    });
+  }
+  return t;
+}
 function renderStats(){
   const series=rolling(7).filter(x=>x.v!==null);
   const last=series.length?series[series.length-1].v:null;
@@ -951,12 +1031,21 @@ function renderStats(){
   const tgt=targetAt(new Date());
   document.getElementById('stWeightSub').textContent = (last&&tgt)? ('target '+tgt.toFixed(1)+' kg') : '7-day average';
   document.getElementById('stLost').innerHTML= last? (base-last).toFixed(1)+'<small> kg</small>' : '-<small> kg</small>';
+  document.getElementById('stLostSub').textContent = (last&&tgt)? ('plan says '+(base-tgt).toFixed(1)+' kg by now') : 'vs. baseline';
+  document.getElementById('sparkNow').textContent = last? last.toFixed(1)+' kg' : '-';
 
   const mon=new Date(); mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
   let km=0; for(let i=0;i<7;i++){ const e=LOG[iso(addD(mon,i))]; if(e&&e.km) km+=e.km; }
   const wk=weekOf(new Date());
   document.getElementById('stKm').textContent=km.toFixed(1);
   document.getElementById('stKmSub').textContent= wk? ('of '+wk.km+' km') : 'outside the block';
+
+  const rp=recentPace();
+  document.getElementById('stPace').innerHTML = rp? rp.p+'<small> /km</small>' : '-';
+  document.getElementById('stPaceSub').textContent = rp? ('last '+rp.n+' run'+(rp.n>1?'s':'')) : 'log km and minutes';
+
+  const ton=weekTonnage();
+  document.getElementById('stTon').innerHTML = ton? (ton/1000).toFixed(1)+'<small> t</small>' : '-<small> t</small>';
 
   const logged=Object.keys(LOG).length;
   document.getElementById('stDays').textContent=logged;
@@ -966,6 +1055,7 @@ function renderStats(){
   document.getElementById('pctBar').style.width=Math.max(0,Math.min(100,pct))+'%';
   document.getElementById('pctTxt').textContent=Math.max(0,Math.min(100,pct))+'%';
   drawSpark(series);
+  renderCoach();
 }
 function drawSpark(series){
   const svg=document.getElementById('spark'); svg.innerHTML='';
@@ -985,6 +1075,55 @@ function drawSpark(series){
   } else {
     svg.insertAdjacentHTML('beforeend','<text x="160" y="44" text-anchor="middle" fill="var(--ink2)" font-size="12" font-weight="500" font-family="Inter">Log 3 days to see your trend</text>');
   }
+}
+
+/* ============================================================
+   COACH CHECK — the plan's own rules, evaluated
+   ============================================================ */
+function coachFlags(){
+  const out=[], today=new Date();
+  if(today<START||today>addD(END,7)) return out;
+  const now=avgAt(today,7), then=avgAt(addD(today,-10),7), tgt=targetAt(today);
+
+  if(now!==null && then!==null){
+    const moved=then-now;
+    if(moved<0.3){
+      out.push(['The average has stalled','It has moved '+moved.toFixed(1)+' kg in 10 days. Drop 150 kcal and hold that for a full week before changing anything else. Do not cut the carbs around Tue, Thu and Sun.']);
+    } else if(tgt!==null && (tgt-now)>1.5){
+      out.push(["You're ahead of the line",'The average is '+(tgt-now).toFixed(1)+' kg under target. If long runs are getting harder or the lifts are dropping, add 150 kcal. Faster is not better here.']);
+    } else if(tgt!==null && (now-tgt)>1.5){
+      out.push(['Behind the line','The average is '+(now-tgt).toFixed(1)+' kg above target. Check adherence and step count for a week before you touch calories.']);
+    }
+  }
+
+  const suns=[];
+  for(let i=1;i<=15 && suns.length<2;i++){ const d=addD(today,-i); if(d.getDay()===0){ const e=LOG[iso(d)]; if(e) suns.push(e); } }
+  if(suns.length===2 && suns[0].rpe>=4 && suns[1].rpe>=4){
+    out.push(['Two hard Sundays in a row','Cut Saturday lower body in half until a long run feels normal again. Keep the shoulder work.']);
+  }
+
+  let streak=0;
+  for(let i=1;i<=4;i++){ const e=LOG[iso(addD(today,-i))]; if(e&&e.rpe>=4) streak++; else break; }
+  if(streak>=3) out.push(['Three flat days running','Take the next easy day genuinely easy, or take it off entirely. Nothing in this block is worth six weeks out.']);
+
+  let short=0, have=0;
+  for(let i=1;i<=7;i++){ const e=LOG[iso(addD(today,-i))]; if(e){ have++; if(!e.sleep) short++; } }
+  if(have>=5 && short>=4) out.push(['Sleep is the leak','Under 7 hours on '+short+' of the last '+have+' logged days. In a deficit that shifts the loss from fat toward muscle and blunts every session.']);
+
+  for(let i=1;i<=7;i++){
+    const d=addD(today,-i);
+    if(d.getDay()===0 && d>=START){ const e=LOG[iso(d)]; if(e && !e.run) out.push(['Sunday long run missed','This is the one session worth rescheduling rather than writing off. Move it onto a rest day this week and shift that lift.']); break; }
+  }
+
+  return out.slice(0,3);
+}
+function renderCoach(){
+  const el=document.getElementById('coach'); if(!el) return;
+  const f=coachFlags();
+  if(!f.length){ el.innerHTML=''; return; }
+  el.innerHTML='<div class="card"><div class="eyebrow">Worth acting on</div>'
+    +f.map((x,i)=>'<div class="callout" style="margin:'+(i?'12px 0 0':'0')+'"><b>'+x[0]+'.</b> '+x[1]+'</div>').join('')
+    +'<p class="tiny muted" style="margin:14px 0 0">This only appears when one of your own rules fires. An empty space here means carry on.</p></div>';
 }
 
 /* ============================================================
@@ -1013,8 +1152,9 @@ function openDay(key){
       +L.ex.map(x=>'<tr><td class="n">'+x[0]+'</td><td>'+x[1]+(x[3]?'<span class="sub">'+x[3]+'</span>':'')+'</td><td class="s">'+x[2]+'</td></tr>').join('')+'</table></div>';
   }
   if(e){
+    const pc=paceStr(e.km,e.min);
     h+='<div class="card flat"><div class="eyebrow">Logged</div><div class="small mono">'
-      +(e.w?('Weight '+e.w+' kg<br>'):'')+(e.km?('Ran '+e.km+' km'+(e.min?' in '+e.min+' min':'')+'<br>'):'')
+      +(e.w?('Weight '+e.w+' kg<br>'):'')+(e.km?('Ran '+e.km+' km'+(e.min?' in '+e.min+' min'+(pc?' · '+pc+' /km':''):'')+'<br>'):'')
       +'Run '+(e.run?'✓':'-')+' · Lift '+(e.lift?'✓':'-')+' · Fuel '+(e.fuel?'✓':'-')+' · Sleep '+(e.sleep?'✓':'-')
       +'</div>'+(e.note?'<p class="small" style="margin:10px 0 0">'+e.note.replace(/</g,'&lt;')+'</p>':'')+'</div>';
   }
@@ -1038,6 +1178,14 @@ document.querySelectorAll('#rpeSeg button').forEach(b=>b.onclick=()=>{
   rpe=+b.dataset.v;
   document.querySelectorAll('#rpeSeg button').forEach(x=>x.setAttribute('aria-pressed', x===b?'true':'false'));
 });
+function renderPaceOut(){
+  const km=parseFloat(document.getElementById('kmIn').value);
+  const min=parseFloat(document.getElementById('minIn').value);
+  const p=paceStr(km,min);
+  document.getElementById('paceOut').textContent = p? (p+' /km') : '';
+}
+document.getElementById('kmIn').addEventListener('input',renderPaceOut);
+document.getElementById('minIn').addEventListener('input',renderPaceOut);
 function loadDay(key){
   const e=LOG[key]||{};
   document.getElementById('wIn').value=e.w??'';
@@ -1052,6 +1200,11 @@ function loadDay(key){
   rpe=e.rpe||0;
   document.querySelectorAll('#rpeSeg button').forEach(x=>x.setAttribute('aria-pressed', (+x.dataset.v===rpe)?'true':'false'));
   document.getElementById('logPlan').innerHTML='<div class="eyebrow">On the plan today</div>'+planSummary(key);
+  const p=planFor(new Date(key+'T00:00:00'));
+  const r=(p&&p.run&&p.week)?p.week.runs[p.run]:null;
+  document.getElementById('rowSalt').hidden = !(r && r.km>=14);
+  document.getElementById('cSalt').checked=!!e.salt;
+  renderPaceOut();
   if(typeof renderFuelReadout==='function') renderFuelReadout();
 }
 document.getElementById('logDate').addEventListener('change',e=>{ loadDay(e.target.value); ACTIVE=e.target.value; picked=null; renderFood(); renderWorkout(); });
@@ -1060,11 +1213,15 @@ document.getElementById('saveLog').onclick=async()=>{
   const w=parseFloat(document.getElementById('wIn').value);
   const km=parseFloat(document.getElementById('kmIn').value);
   const min=parseInt(document.getElementById('minIn').value);
+  const fuelTicked=document.getElementById('cFuel').checked;
+  const auto=fuelHit(key);
   LOG[key]={
     w: isNaN(w)?null:w, km: isNaN(km)?null:km, min: isNaN(min)?null:min,
     run:document.getElementById('cRun').checked, lift:document.getElementById('cLift').checked,
-    fuel:document.getElementById('cFuel').checked, sleep:document.getElementById('cSleep').checked,
-    steps:document.getElementById('cSteps').checked, rpe, note:document.getElementById('noteIn').value.trim()
+    fuel:fuelTicked, sleep:document.getElementById('cSleep').checked,
+    steps:document.getElementById('cSteps').checked, salt:document.getElementById('cSalt').checked,
+    fuelManual: (auto!==null && fuelTicked!==auto),
+    rpe, note:document.getElementById('noteIn').value.trim()
   };
   await store.set(K_LOG,LOG);
   renderGrid(); renderStats(); renderRecent(); renderBackupNudge();
@@ -1143,9 +1300,11 @@ function renderRecent(){
     const d=addD(new Date(),-i); if(d<START||d>END) continue;
     const key=iso(d), e=LOG[key]; if(!e) continue;
     const s=(e.run?1:0)+(e.lift?1:0)+(e.fuel?1:0)+(e.sleep?1:0);
+    const pc=paceStr(e.km,e.min);
     rows.push('<div class="row"><div class="daycol"><div class="d">'+DOW[d.getDay()].toUpperCase()+'</div><div class="n">'+d.getDate()+'</div></div>'
       +'<div style="flex:1"><b class="mono">'+s+'/4</b>'+(e.w?' <span class="muted mono small">· '+e.w+' kg</span>':'')
       +(e.km?' <span class="muted mono small">· '+e.km+' km</span>':'')
+      +(pc?' <span class="muted mono small">· '+pc+' /km</span>':'')
       +(e.note?'<span class="sub" style="display:block;font-size:12px;color:var(--ink2);margin-top:4px">'+e.note.replace(/</g,'&lt;').slice(0,90)+'</span>':'')+'</div></div>');
   }
   el.innerHTML=rows.length?rows.join(''):'<p class="small muted" style="margin:0">Nothing logged yet. Fill this in tonight: the tracker only works if it is boring and daily.</p>';
@@ -1155,12 +1314,12 @@ function renderRecent(){
    WORKOUT TRACKING
    ============================================================ */
 const EX_DB = [
-  {c:"Legs", n:"BB Squat"}, {c:"Legs", n:"Leg Press"}, {c:"Legs", n:"Leg Ext"}, {c:"Legs", n:"Leg Curl"}, {c:"Legs", n:"Abductor"}, {c:"Legs", n:"Adductor"}, {c:"Legs", n:"Lunge"}, {c:"Legs", n:"Calf Raise"}, {c:"Legs", n:"RDL"},
+  {c:"Legs", n:"BB Squat"}, {c:"Legs", n:"Leg Press"}, {c:"Legs", n:"Leg Ext"}, {c:"Legs", n:"Leg Curl"}, {c:"Legs", n:"Abductor"}, {c:"Legs", n:"Adductor"}, {c:"Legs", n:"Lunge"}, {c:"Legs", n:"Calf Raise"}, {c:"Legs", n:"RDL"}, {c:"Legs", n:"Hip Thrust"}, {c:"Legs", n:"Step Up"},
   {c:"Chest", n:"BB Flat"}, {c:"Chest", n:"BB Incline"}, {c:"Chest", n:"DB Flat"}, {c:"Chest", n:"DB Incline"}, {c:"Chest", n:"Fly Machine"}, {c:"Chest", n:"Fly Cable"}, {c:"Chest", n:"Pushups"},
-  {c:"Back", n:"Lat Pull"}, {c:"Back", n:"Cable Row"}, {c:"Back", n:"Iso Row"}, {c:"Back", n:"DB Row"}, {c:"Back", n:"Deadlift"}, {c:"Back", n:"1-Arm Pull"}, {c:"Back", n:"Pull Over"}, {c:"Back", n:"Pull Up"},
-  {c:"Shoulders", n:"Mil Press"}, {c:"Shoulders", n:"BB Press"}, {c:"Shoulders", n:"Mach Press"}, {c:"Shoulders", n:"DB Press"}, {c:"Shoulders", n:"Arnold Pr"}, {c:"Shoulders", n:"Lat Raise"},
-  {c:"Arms", n:"Tri Ext"}, {c:"Arms", n:"Tri Push"}, {c:"Arms", n:"Bi Curl"}, {c:"Arms", n:"Preacher"},
-  {c:"Core", n:"Crunches"}, {c:"Core", n:"Leg Raise"},
+  {c:"Back", n:"Lat Pull"}, {c:"Back", n:"Cable Row"}, {c:"Back", n:"Iso Row"}, {c:"Back", n:"DB Row"}, {c:"Back", n:"Deadlift"}, {c:"Back", n:"Trap Bar DL"}, {c:"Back", n:"1-Arm Pull"}, {c:"Back", n:"Pull Over"}, {c:"Back", n:"Pull Up"},
+  {c:"Shoulders", n:"Mil Press"}, {c:"Shoulders", n:"BB Press"}, {c:"Shoulders", n:"Mach Press"}, {c:"Shoulders", n:"DB Press"}, {c:"Shoulders", n:"Arnold Pr"}, {c:"Shoulders", n:"Lat Raise"}, {c:"Shoulders", n:"Rear Delt"}, {c:"Shoulders", n:"Face Pull"},
+  {c:"Arms", n:"Tri Ext"}, {c:"Arms", n:"Tri Push"}, {c:"Arms", n:"Bi Curl"}, {c:"Arms", n:"Preacher"}, {c:"Arms", n:"Farmer Carry"},
+  {c:"Core", n:"Crunches"}, {c:"Core", n:"Leg Raise"}, {c:"Core", n:"Side Plank"}, {c:"Core", n:"Dead Bug"}, {c:"Core", n:"Copenhagen"},
   {c:"Cardio", n:"Run (S)"}, {c:"Cardio", n:"Run (L)"}
 ];
 
@@ -1247,6 +1406,17 @@ function renderWoGrid(){
   });
 }
 
+function lastTimeFor(name){
+  const keys=Object.keys(WORKOUT).filter(k=>k<ACTIVE).sort().reverse();
+  for(const k of keys){
+    const wd=WORKOUT[k];
+    const list=Array.isArray(wd)?wd:(wd?wd.logs:null);
+    const hits=(list||[]).filter(l=>l.name===name);
+    if(hits.length) return {date:k, sets:hits};
+  }
+  return null;
+}
+
 function showSetForm(){
   if(!activeWoEx) return;
   const form = document.getElementById('setForm');
@@ -1271,6 +1441,19 @@ function showSetForm(){
   }
   
   document.getElementById('woSetIn').value = nextSet;
+
+  const prev = lastTimeFor(activeWoEx);
+  const lbl = document.getElementById('lblLast');
+  if(prev){
+    const d = new Date(prev.date+'T00:00:00');
+    const bits = prev.sets.slice(0,5).map(s => (s.w?r1(s.w):'-')+' × '+(s.r?esc(s.r):'-')).join('   ');
+    const best = Math.max(...prev.sets.map(s=>s.w||0));
+    lbl.innerHTML = 'Last on <b>'+DOW[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+'</b> &nbsp; '+bits;
+    if(!loggedForEx.length && best>0) document.getElementById('woWIn').value = best;
+  } else {
+    lbl.innerHTML = '<span style="opacity:.6">First time logging this one. Write down what you use.</span>';
+  }
+
   document.getElementById('woWIn').focus();
 }
 
@@ -1340,15 +1523,16 @@ document.getElementById('logSetBtn').onclick = async () => {
   const s = parseInt(document.getElementById('woSetIn').value);
   const w = parseFloat(document.getElementById('woWIn').value);
   const r = document.getElementById('woRIn').value.trim();
-  const rpe = parseFloat(document.getElementById('woRpeIn').value);
+  const rpeV = parseFloat(document.getElementById('woRpeIn').value);
   
   let targetData = WORKOUT[ACTIVE];
   if(!targetData) targetData = { preset: '', logs: [] };
   else if(Array.isArray(targetData)) targetData = { preset: '', logs: targetData };
 
+  targetData.preset = document.getElementById('woPresetSel').value || targetData.preset || '';
   targetData.logs.push({
     id: 'w'+Date.now(), name: activeWoEx, 
-    s: isNaN(s)?null:s, w: isNaN(w)?null:w, r: r, rpe: isNaN(rpe)?null:rpe
+    s: isNaN(s)?null:s, w: isNaN(w)?null:w, r: r, rpe: isNaN(rpeV)?null:rpeV
   });
   WORKOUT[ACTIVE] = targetData;
   
@@ -1358,12 +1542,15 @@ document.getElementById('logSetBtn').onclick = async () => {
   document.getElementById('woRpeIn').value = ''; 
   
   renderWorkoutLog();
+  renderStats();
   toast('Set logged');
 };
 
 function renderWorkoutLog(){
-  const list = (WORKOUT[ACTIVE] && !Array.isArray(WORKOUT[ACTIVE])) ? WORKOUT[ACTIVE].logs : (WORKOUT[ACTIVE]||[]);
-  document.getElementById('woCount').textContent = list.length ? (list.length+' set'+(list.length>1?'s':'')) : '';
+  const wd = WORKOUT[ACTIVE];
+  const list = (wd && !Array.isArray(wd)) ? wd.logs : (wd||[]);
+  const preset = (wd && !Array.isArray(wd)) ? wd.preset : '';
+  document.getElementById('woCount').textContent = list.length ? ((preset?preset+' · ':'')+list.length+' set'+(list.length>1?'s':'')) : '';
   const el = document.getElementById('woLog');
   
   el.innerHTML = list.length ? list.map(e => {
@@ -1385,7 +1572,7 @@ function renderWorkoutLog(){
     if(!targetData.logs.length) delete WORKOUT[ACTIVE];
     else WORKOUT[ACTIVE] = targetData;
     await store.set(K_WORK, WORKOUT); 
-    renderWorkoutLog();
+    renderWorkoutLog(); renderStats();
   });
 }
 
@@ -1413,22 +1600,35 @@ document.getElementById('wNext').onclick=()=>goDay(1);
    FOOD
    ============================================================ */
 const BASE_FOODS=[
- {id:"chicken", name:"Raw Chicken Breast",                       kcal:165, p:31,   f:3.6, c:0},
- {id:"skyr",    name:"Milky Mist Skyr High-Protein Yogurt",      kcal:100, p:12,   f:1.5, c:10},
- {id:"basmati", name:"Basmati Rice (raw)",                       kcal:350, p:7.5,  f:0.5, c:78},
- {id:"miild",   name:"Miild High Protein Atta",                  kcal:387, p:46.2, f:2.3, c:45.5},
- {id:"butter",  name:"Amul Butter",                              kcal:720, p:0.1,  f:80,  c:0.1},
- {id:"whey",    name:"Whey Protein Powder",                      kcal:380, p:80,   f:6,   c:8},
+ {id:"chicken", name:"Raw Chicken Breast",                       kcal:165, p:31,   f:3.6, c:0,    u:[["1 breast",150]]},
+ {id:"skyr",    name:"Milky Mist Skyr High-Protein Yogurt",      kcal:100, p:12,   f:1.5, c:10,   u:[["1 pot",100]]},
+ {id:"basmati", name:"Basmati Rice (raw)",                       kcal:350, p:7.5,  f:0.5, c:78,   u:[["1 katori raw",60]]},
+ {id:"miild",   name:"Miild High Protein Atta",                  kcal:387, p:46.2, f:2.3, c:45.5, u:[["1 roti worth",40]]},
+ {id:"roti",    name:"Roti (cooked, plain)",                     kcal:280, p:9,    f:5,   c:50,   u:[["1 roti",45]]},
+ {id:"butter",  name:"Amul Butter",                              kcal:720, p:0.1,  f:80,  c:0.1,  u:[["1 tsp",5]]},
+ {id:"ghee",    name:"Ghee",                                     kcal:900, p:0,    f:100, c:0,    u:[["1 tsp",5],["1 tbsp",14]]},
+ {id:"oil",     name:"Cooking Oil",                              kcal:884, p:0,    f:100, c:0,    u:[["1 tsp",5],["1 tbsp",14]]},
+ {id:"whey",    name:"Whey Protein Powder",                      kcal:380, p:80,   f:6,   c:8,    u:[["1 scoop",30]]},
  {id:"sauce",   name:"Pizza / Pasta Sauce",                      kcal:40,  p:1.5,  f:1,   c:8},
- {id:"cheese",  name:"Amul Cheese Slice",                        kcal:314, p:20,   f:26,  c:1.5},
- {id:"mayo",    name:"Veeba Low Fat Mayonnaise",                 kcal:204, p:1,    f:20,  c:8},
- {id:"oats",    name:"Oats (raw)",                               kcal:389, p:13.5, f:6.5, c:66},
- {id:"banana",  name:"Banana",                                   kcal:89,  p:1.1,  f:0.3, c:23},
- {id:"papaya",  name:"Papaya",                                   kcal:43,  p:0.6,  f:0.3, c:11},
- {id:"paneer",  name:"Paneer",                                   kcal:265, p:18,   f:20,  c:4},
- {id:"bread",   name:"Whole Wheat Bread",                        kcal:247, p:9,    f:3,   c:41},
- {id:"egg",     name:"Whole Egg (raw)",                          kcal:143, p:12.6, f:9.5, c:0.7},
- {id:"eggwhite",name:"Egg Whites (raw)",                         kcal:52,  p:10.9, f:0.2, c:0.7}
+ {id:"cheese",  name:"Amul Cheese Slice",                        kcal:314, p:20,   f:26,  c:1.5,  u:[["1 slice",20]]},
+ {id:"mayo",    name:"Veeba Low Fat Mayonnaise",                 kcal:204, p:1,    f:20,  c:8,    u:[["1 tbsp",14]]},
+ {id:"oats",    name:"Oats (raw)",                               kcal:389, p:13.5, f:6.5, c:66,   u:[["1 bowl",40]]},
+ {id:"banana",  name:"Banana",                                   kcal:89,  p:1.1,  f:0.3, c:23,   u:[["1 medium",118]]},
+ {id:"papaya",  name:"Papaya",                                   kcal:43,  p:0.6,  f:0.3, c:11,   u:[["1 bowl",150]]},
+ {id:"apple",   name:"Apple",                                    kcal:52,  p:0.3,  f:0.2, c:14,   u:[["1 medium",180]]},
+ {id:"paneer",  name:"Paneer",                                   kcal:265, p:18,   f:20,  c:4,    u:[["1 katori",100]]},
+ {id:"bread",   name:"Whole Wheat Bread",                        kcal:247, p:9,    f:3,   c:41,   u:[["1 slice",30]]},
+ {id:"egg",     name:"Whole Egg (raw)",                          kcal:143, p:12.6, f:9.5, c:0.7,  u:[["1 egg",50],["2 eggs",100]]},
+ {id:"eggwhite",name:"Egg Whites (raw)",                         kcal:52,  p:10.9, f:0.2, c:0.7,  u:[["1 white",33],["3 whites",100]]},
+ {id:"dal",     name:"Toor Dal (raw)",                           kcal:343, p:22,   f:1.7, c:63,   u:[["1 katori raw",40]]},
+ {id:"soya",    name:"Soya Chunks (dry)",                        kcal:345, p:52,   f:0.5, c:33,   u:[["1 katori dry",30]]},
+ {id:"chana",   name:"Chickpeas (boiled)",                       kcal:164, p:8.9,  f:2.6, c:27,   u:[["1 katori",120]]},
+ {id:"curd",    name:"Curd (full fat)",                          kcal:61,  p:3.5,  f:3.3, c:4.7,  u:[["1 katori",150]]},
+ {id:"milk",    name:"Milk (toned)",                             kcal:47,  p:3.3,  f:1.5, c:4.9,  u:[["1 cup",240]]},
+ {id:"pb",      name:"Peanut Butter",                            kcal:588, p:25,   f:50,  c:20,   u:[["1 tbsp",16]]},
+ {id:"almond",  name:"Almonds",                                  kcal:579, p:21,   f:50,  c:22,   u:[["10 pcs",12]]},
+ {id:"fish",    name:"Fish (basa fillet)",                       kcal:90,  p:15,   f:3,   c:0,    u:[["1 fillet",120]]},
+ {id:"potato",  name:"Potato (raw)",                             kcal:77,  p:2,    f:0.1, c:17,   u:[["1 medium",150]]}
 ];
 let picked=null;
 const allFoods=()=>BASE_FOODS.concat(CUSTOM);
@@ -1463,6 +1663,15 @@ function fuelHit(key){
   const t=foodTotals(key), g=targetsFor(key);
   return (t.kcal<=g.kcal*1.07) && (t.p>=g.p*0.9);
 }
+function recentFoods(n){
+  const seen=new Map();
+  Object.keys(FOOD).sort().reverse().forEach(k=>{
+    (FOOD[k]||[]).forEach(e=>{
+      if(!seen.has(e.name)) seen.set(e.name,{id:'r'+seen.size,name:e.name,kcal:e.per100.kcal,p:e.per100.p,f:e.per100.f,c:e.per100.c,g:e.grams});
+    });
+  });
+  return Array.from(seen.values()).slice(0,n);
+}
 
 function renderFood(){
   const key=ACTIVE, d=new Date(key+'T00:00:00');
@@ -1486,7 +1695,18 @@ function renderFood(){
   document.getElementById('dayNote').innerHTML = g.adj.why
     ? '<div class="callout run" style="margin:16px 0 0">'+g.adj.why+'</div>' : '';
 
-  renderPicker(); renderFoodLog();
+  renderRecentStrip(); renderPicker(); renderFoodLog();
+}
+function renderRecentStrip(){
+  const el=document.getElementById('fRecent');
+  const rec=recentFoods(8);
+  if(!rec.length){ el.innerHTML=''; el.style.display='none'; return; }
+  el.style.display='flex';
+  el.innerHTML=rec.map((f,i)=>'<button class="cat-pill" data-ri="'+i+'">'+esc(f.name.length>18?f.name.slice(0,17)+'…':f.name)+'</button>').join('');
+  el.querySelectorAll('[data-ri]').forEach(b=>b.onclick=()=>{
+    picked=rec[+b.dataset.ri]; renderPicker();
+    setTimeout(()=>document.getElementById('gIn')?.focus(),40);
+  });
 }
 function renderPicker(){
   const q=(document.getElementById('fSearch').value||'').toLowerCase().trim();
@@ -1503,14 +1723,20 @@ function renderPicker(){
   });
   const pk=document.getElementById('fPick');
   if(!picked){ pk.innerHTML=''; return; }
-  pk.innerHTML='<div class="gramrow"><input type="number" id="gIn" inputmode="decimal" placeholder="grams"><button id="addBtn" disabled>Add</button></div><div class="prev" id="gPrev">Enter a weight in grams</div>';
+  const chips = picked.u ? '<div class="chips">'+picked.u.map(u=>'<button data-g="'+u[1]+'">'+esc(u[0])+' · '+u[1]+' g</button>').join('')+'</div>' : '';
+  pk.innerHTML='<div class="tiny muted mono" style="margin-top:14px">'+esc(picked.name)+'</div>'
+    +'<div class="gramrow"><input type="number" id="gIn" inputmode="decimal" placeholder="grams" value="'+(picked.g||'')+'"><button id="addBtn"'+(picked.g?'':' disabled')+'>Add</button></div>'
+    +chips
+    +'<div class="prev" id="gPrev">Enter a weight in grams</div>';
   const gi=document.getElementById('gIn'), ab=document.getElementById('addBtn');
-  gi.oninput=()=>{
+  const refresh=()=>{
     const g=parseFloat(gi.value); ab.disabled=!(g>0);
     document.getElementById('gPrev').textContent = g>0
       ? (r0(scaleF(picked,g).kcal)+' kcal · P '+r1(scaleF(picked,g).p)+' · C '+r1(scaleF(picked,g).c)+' · F '+r1(scaleF(picked,g).f))
       : 'Enter a weight in grams';
   };
+  gi.oninput=refresh; refresh();
+  pk.querySelectorAll('.chips button').forEach(b=>b.onclick=()=>{ gi.value=b.dataset.g; refresh(); });
   ab.onclick=async()=>{
     const g=parseFloat(gi.value); if(!(g>0)) return;
     (FOOD[ACTIVE]=FOOD[ACTIVE]||[]).push({id:'e'+Date.now(),name:picked.name,grams:g,per100:{kcal:picked.kcal,p:picked.p,f:picked.f,c:picked.c}});
@@ -1537,8 +1763,9 @@ function renderFoodLog(){
 async function syncFuel(){
   const d=new Date(ACTIVE+'T00:00:00'), inBlock = d>=START && d<=END;
   const hit=fuelHit(ACTIVE);
-  if(hit!==null && inBlock){
-    const e=LOG[ACTIVE]||{}; e.fuel=hit; LOG[ACTIVE]=e; await store.set(K_LOG,LOG);
+  const existing=LOG[ACTIVE];
+  if(hit!==null && inBlock && !(existing&&existing.fuelManual)){
+    const e=existing||{}; e.fuel=hit; LOG[ACTIVE]=e; await store.set(K_LOG,LOG);
     if(document.getElementById('logDate').value===ACTIVE) document.getElementById('cFuel').checked=hit;
   }
   renderGrid(); renderStats(); renderRecent(); renderFuelReadout();
